@@ -21,21 +21,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
+import jaci.pathfinder.PathfinderFRC;
+import jaci.pathfinder.Trajectory;
+import jaci.pathfinder.followers.EncoderFollower;
 
 public class Drivetrain extends Subsystem {
 
   static Constants constants = Constants.getInstance();
   
-  //SPARK MAX LEFT MOTORS
-  public CANSparkMax frontLeftM = new CANSparkMax(constants.frontLeftMPort, MotorType.kBrushless);
-  public CANSparkMax midLeftM = new CANSparkMax(constants.midLeftMPort, MotorType.kBrushless);
-  public CANSparkMax rearLeftM = new CANSparkMax(constants.rearLeftMPort, MotorType.kBrushless);
-  
-  //SPARK MAX RIGHT MOTORS
-  public CANSparkMax frontRightM = new CANSparkMax(constants.frontRightMPort, MotorType.kBrushless);
-  public CANSparkMax midRightM = new CANSparkMax(constants.midRightMPort, MotorType.kBrushless);
-  public CANSparkMax rearRightM = new CANSparkMax(constants.rearRightMPort, MotorType.kBrushless);
-
   /*TALON CODE THAT IS UNUSED BECAUSE WE ARE USING SPARKS
   //TALON SRX LEFT MOTORS
   public WPI_TalonSRX frontLeftM = new WPI_TalonSRX(constants.frontLeftMPort);
@@ -45,6 +38,16 @@ public class Drivetrain extends Subsystem {
   public WPI_TalonSRX frontRightM = new WPI_TalonSRX(constants.frontRightMPort);
   public WPI_TalonSRX midRightM = new WPI_TalonSRX(constants.midRightMPort);
   public WPI_TalonSRX rearRightM = new WPI_TalonSRX(constants.rearRightMPort);*/
+
+  //SPARK MAX LEFT MOTORS
+  public CANSparkMax frontLeftM = new CANSparkMax(constants.frontLeftMPort, MotorType.kBrushless);
+  public CANSparkMax midLeftM = new CANSparkMax(constants.midLeftMPort, MotorType.kBrushless);
+  public CANSparkMax rearLeftM = new CANSparkMax(constants.rearLeftMPort, MotorType.kBrushless);
+  
+  //SPARK MAX RIGHT MOTORS
+  public CANSparkMax frontRightM = new CANSparkMax(constants.frontRightMPort, MotorType.kBrushless);
+  public CANSparkMax midRightM = new CANSparkMax(constants.midRightMPort, MotorType.kBrushless);
+  public CANSparkMax rearRightM = new CANSparkMax(constants.rearRightMPort, MotorType.kBrushless);
 
   //SPEED CONTROLLER GROUPS
   public SpeedControllerGroup leftGroup = new SpeedControllerGroup(frontLeftM, midLeftM, rearLeftM);
@@ -72,6 +75,30 @@ public class Drivetrain extends Subsystem {
     //OUTPUTTING RIGHT SIDE DRIVETRAIN ENCODER VALUES
     SmartDashboard.putNumber("Right NEO Encoder Position", getRightEncPos());
     SmartDashboard.putNumber("Right NEO Encoder Velocity", getRightEncVel());
+    //OUTPUTTING LEFT SIDE DRIVETRAIN VOLTAGE VALUES
+    SmartDashboard.putNumber("Front Left Motor Voltage", frontLeftM.getBusVoltage());
+    SmartDashboard.putNumber("Mid Left Motor Voltage", midLeftM.getBusVoltage());
+    SmartDashboard.putNumber("Rear Left Motor Voltage", rearLeftM.getBusVoltage());
+    //OUTPUTTING RIGHT SIDE DRIVETRAIN VOLTAGE VALUES
+    SmartDashboard.putNumber("Front Right Motor Voltage", frontRightM.getBusVoltage());
+    SmartDashboard.putNumber("Mid Right Motor Voltage", midRightM.getBusVoltage());
+    SmartDashboard.putNumber("Rear Right Motor Voltage", rearRightM.getBusVoltage());
+    //OUTPUTTING LEFT SIDE DRIVETRAIN TEMPERATURE VALUES
+    SmartDashboard.putNumber("Front Left Motor Temperature", frontLeftM.getMotorTemperature());
+    SmartDashboard.putNumber("Mid Left Motor Temperature", midLeftM.getMotorTemperature());
+    SmartDashboard.putNumber("Rear Left Motor Temperature", rearLeftM.getMotorTemperature());
+    //OUTPUTTING RIGHT SIDE DRIVETRAIN TEMPERATURE VALUES
+    SmartDashboard.putNumber("Front Right Motor Temperature", frontRightM.getMotorTemperature());
+    SmartDashboard.putNumber("Mid Right Motor Temperature", midRightM.getMotorTemperature());
+    SmartDashboard.putNumber("Rear Right Motor Temperature", rearRightM.getMotorTemperature());
+    //OUTPUTTING LEFT SIDE DRIVETRAIN OUTPUT VALUES
+    SmartDashboard.putNumber("Front Left Motor Output", frontLeftM.getAppliedOutput());
+    SmartDashboard.putNumber("Mid Left Motor Output", midLeftM.getAppliedOutput());
+    SmartDashboard.putNumber("Rear Left Motor Output", rearLeftM.getAppliedOutput());
+    //OUTPUTTING RIGHT SIDE DRIVETRAIN OUTPUT VALUES
+    SmartDashboard.putNumber("Front Right Motor Output", frontRightM.getAppliedOutput());
+    SmartDashboard.putNumber("Mid Right Motor Output", midRightM.getAppliedOutput());
+    SmartDashboard.putNumber("Rear Right Motor Output", rearRightM.getAppliedOutput());
     //OUTPUTTING GYRO VALUES
     SmartDashboard.putNumber("Gyro Angle", getGyroAngle());
     SmartDashboard.putNumber("Gyro Axis", getGyroAxis());
@@ -96,6 +123,16 @@ public class Drivetrain extends Subsystem {
     } else {
       shiftSol.set(DoubleSolenoid.Value.kForward);
     }
+  }
+
+  //PATH METHODS
+  public void path(String Path1){
+    //LEFT SWAPPED WITH RIGHT DUE TO A BUG IN PATHWEAVER
+    Trajectory leftTraj = PathfinderFRC.getTrajectory(Path1 + ".right");
+    Trajectory rightTraj = PathfinderFRC.getTrajectory(Path1 + ".left");
+
+    EncoderFollower leftEncFollower = new EncoderFollower(leftTraj);
+    EncoderFollower rightEncFollower = new EncoderFollower(rightTraj);
   }
 
   public double getLeftEncPos(){

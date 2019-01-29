@@ -8,18 +8,25 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.Drivetrain.ShiftGear;
 
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+  
   Constants constants = Constants.getInstance();
 
   public Joystick driveJS = new Joystick(constants.driveJSPort);
 
   public OI(){
-    
+    //DRIVER JOYSTICK BUTTONS
+    Button shift = new JoystickButton(driveJS, constants.shiftB);
+    shift.whenPressed(new ShiftGear());
+
   }
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a

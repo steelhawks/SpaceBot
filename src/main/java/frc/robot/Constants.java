@@ -8,6 +8,7 @@
 package frc.robot;
 
 public class Constants {
+  
   private static Constants instance = null;
 
     public static Constants getInstance(){
@@ -54,4 +55,7 @@ public class Constants {
     //ARM SOLENOID PORTS
     public static final int armSolPortOn = 2;
     public static final int armSolPortOff = 3;
+
+    //DRIVER JOYSTICK BUTTONS
+    public static final int shiftB = 1;
 }
