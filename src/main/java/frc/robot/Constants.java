@@ -58,4 +58,15 @@ public class Constants {
 
     //DRIVER JOYSTICK BUTTONS
     public static final int shiftB = 1;
+
+    //OPTICAL ENCODER PORTS
+    public static final int leftEncPortA = 0;
+    public static final int leftEncPortB = 1;
+    public static final int rightEncPortA = 2;
+    public static final int rightEncPortB = 3;
+    
+    //PATHWEAVER CONSTANTS
+    public static final int ticksPerRev = 256;
+    public static final double wheelDiameter = 6.0 / 12.0;
+    public static final double maxVel = 12.0;
 }

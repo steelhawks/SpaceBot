@@ -12,20 +12,19 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.Arms;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Elevator;
 
-/**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the TimedRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the build.gradle file in the
- * project.
- */
 public class Robot extends TimedRobot {
 
   Constants constants = Constants.getInstance();
 
   public static final Drivetrain drivetrain = new Drivetrain();
+  public static final Arms arms = new Arms();
+  public static final Climber climber = new Climber();
+  public static final Elevator elevator = new Elevator();
   public static OI oi = new OI();
 
   Command m_autonomousCommand;
@@ -37,7 +36,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    // chooser.addOption("My Auto", new MyAutoCommand());
+    Robot.drivetrain.diffDrive.setSafetyEnabled(false);
+    Robot.drivetrain.diffDrive.setExpiration(120);
     SmartDashboard.putData("Auto mode", m_chooser);
   }
 
@@ -51,6 +51,31 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+        //OUTPUTTING LEFT SIDE DRIVETRAIN ENCODER VALUES
+        SmartDashboard.putNumber("Left NEO Encoder Position", Robot.drivetrain.getLeftEncPos());
+        SmartDashboard.putNumber("Left NEO Encoder Velocity", Robot.drivetrain.getLeftEncVel());
+        //OUTPUTTING RIGHT SIDE DRIVETRAIN ENCODER VALUES
+        SmartDashboard.putNumber("Right NEO Encoder Position", Robot.drivetrain.getRightEncPos());
+        SmartDashboard.putNumber("Right NEO Encoder Velocity", Robot.drivetrain.getRightEncVel());
+        //OUTPUTTING LEFT SIDE DRIVETRAIN VOLTAGE VALUES
+        SmartDashboard.putNumber("Front Left Motor Voltage", Robot.drivetrain.frontLeftM.getBusVoltage());
+        SmartDashboard.putNumber("Mid Left Motor Voltage", Robot.drivetrain.midLeftM.getBusVoltage());
+        SmartDashboard.putNumber("Rear Left Motor Voltage", Robot.drivetrain.rearLeftM.getBusVoltage());
+        //OUTPUTTING RIGHT SIDE DRIVETRAIN VOLTAGE VALUES
+        SmartDashboard.putNumber("Front Right Motor Voltage", Robot.drivetrain.frontRightM.getBusVoltage());
+        SmartDashboard.putNumber("Mid Right Motor Voltage", Robot.drivetrain.midRightM.getBusVoltage());
+        SmartDashboard.putNumber("Rear Right Motor Voltage", Robot.drivetrain.rearRightM.getBusVoltage());
+        //OUTPUTTING LEFT SIDE DRIVETRAIN OUTPUT VALUES
+        SmartDashboard.putNumber("Front Left Motor Output", Robot.drivetrain.frontLeftM.getAppliedOutput());
+        SmartDashboard.putNumber("Mid Left Motor Output", Robot.drivetrain.midLeftM.getAppliedOutput());
+        SmartDashboard.putNumber("Rear Left Motor Output", Robot.drivetrain.rearLeftM.getAppliedOutput());
+        //OUTPUTTING RIGHT SIDE DRIVETRAIN OUTPUT VALUES
+        SmartDashboard.putNumber("Front Right Motor Output", Robot.drivetrain.frontRightM.getAppliedOutput());
+        SmartDashboard.putNumber("Mid Right Motor Output", Robot.drivetrain.midRightM.getAppliedOutput());
+        SmartDashboard.putNumber("Rear Right Motor Output", Robot.drivetrain.rearRightM.getAppliedOutput());
+        //OUTPUTTING GYRO VALUES
+        SmartDashboard.putNumber("Gyro Angle", Robot.drivetrain.getGyroAngle());
+        SmartDashboard.putNumber("Gyro Axis", Robot.drivetrain.getGyroAxis());
   }
 
   /**

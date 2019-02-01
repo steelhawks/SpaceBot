@@ -14,13 +14,17 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
+import frc.robot.Robot;
+import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.PathfinderFRC;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.followers.EncoderFollower;
@@ -63,45 +67,20 @@ public class Drivetrain extends Subsystem {
   public static AHRS gyro = new AHRS(SPI.Port.kMXP);
 
   //NEO MOTOR ENCODERS
-  public CANEncoder leftSideEnc = frontLeftM.getEncoder();
-  public CANEncoder rightSideEnc = frontRightM.getEncoder();
+  public CANEncoder leftNeoEnc = frontLeftM.getEncoder();
+  public CANEncoder rightNeoEnc = frontRightM.getEncoder();
+
+  //GRAYHILL OPTICAL ENCODERS
+  public Encoder leftEnc = new Encoder(constants.leftEncPortA, constants.leftEncPortB, false, EncodingType.k4X);
+  public Encoder rightEnc = new Encoder(constants.rightEncPortA, constants.rightEncPortB, false, EncodingType.k4X);
 
   public Drivetrain(){
     //SETTING DEFAULTS FOR THE ROBOT
     resetGyro();
-    //OUTPUTTING LEFT SIDE DRIVETRAIN ENCODER VALUES
-    SmartDashboard.putNumber("Left NEO Encoder Position", getLeftEncPos());
-    SmartDashboard.putNumber("Left NEO Encoder Velocity", getLeftEncVel());
-    //OUTPUTTING RIGHT SIDE DRIVETRAIN ENCODER VALUES
-    SmartDashboard.putNumber("Right NEO Encoder Position", getRightEncPos());
-    SmartDashboard.putNumber("Right NEO Encoder Velocity", getRightEncVel());
-    //OUTPUTTING LEFT SIDE DRIVETRAIN VOLTAGE VALUES
-    SmartDashboard.putNumber("Front Left Motor Voltage", frontLeftM.getBusVoltage());
-    SmartDashboard.putNumber("Mid Left Motor Voltage", midLeftM.getBusVoltage());
-    SmartDashboard.putNumber("Rear Left Motor Voltage", rearLeftM.getBusVoltage());
-    //OUTPUTTING RIGHT SIDE DRIVETRAIN VOLTAGE VALUES
-    SmartDashboard.putNumber("Front Right Motor Voltage", frontRightM.getBusVoltage());
-    SmartDashboard.putNumber("Mid Right Motor Voltage", midRightM.getBusVoltage());
-    SmartDashboard.putNumber("Rear Right Motor Voltage", rearRightM.getBusVoltage());
-    //OUTPUTTING LEFT SIDE DRIVETRAIN TEMPERATURE VALUES
-    SmartDashboard.putNumber("Front Left Motor Temperature", frontLeftM.getMotorTemperature());
-    SmartDashboard.putNumber("Mid Left Motor Temperature", midLeftM.getMotorTemperature());
-    SmartDashboard.putNumber("Rear Left Motor Temperature", rearLeftM.getMotorTemperature());
-    //OUTPUTTING RIGHT SIDE DRIVETRAIN TEMPERATURE VALUES
-    SmartDashboard.putNumber("Front Right Motor Temperature", frontRightM.getMotorTemperature());
-    SmartDashboard.putNumber("Mid Right Motor Temperature", midRightM.getMotorTemperature());
-    SmartDashboard.putNumber("Rear Right Motor Temperature", rearRightM.getMotorTemperature());
-    //OUTPUTTING LEFT SIDE DRIVETRAIN OUTPUT VALUES
-    SmartDashboard.putNumber("Front Left Motor Output", frontLeftM.getAppliedOutput());
-    SmartDashboard.putNumber("Mid Left Motor Output", midLeftM.getAppliedOutput());
-    SmartDashboard.putNumber("Rear Left Motor Output", rearLeftM.getAppliedOutput());
-    //OUTPUTTING RIGHT SIDE DRIVETRAIN OUTPUT VALUES
-    SmartDashboard.putNumber("Front Right Motor Output", frontRightM.getAppliedOutput());
-    SmartDashboard.putNumber("Mid Right Motor Output", midRightM.getAppliedOutput());
-    SmartDashboard.putNumber("Rear Right Motor Output", rearRightM.getAppliedOutput());
-    //OUTPUTTING GYRO VALUES
-    SmartDashboard.putNumber("Gyro Angle", getGyroAngle());
-    SmartDashboard.putNumber("Gyro Axis", getGyroAxis());
+    leftEnc.reset();
+    rightEnc.reset();
+    shiftSol.set(DoubleSolenoid.Value.kForward);
+
   }
   @Override
   public void initDefaultCommand() {
@@ -125,27 +104,17 @@ public class Drivetrain extends Subsystem {
     }
   }
 
-  //PATH METHODS
-  public void path(String Path1){
-    //LEFT SWAPPED WITH RIGHT DUE TO A BUG IN PATHWEAVER
-    Trajectory leftTraj = PathfinderFRC.getTrajectory(Path1 + ".right");
-    Trajectory rightTraj = PathfinderFRC.getTrajectory(Path1 + ".left");
-
-    EncoderFollower leftEncFollower = new EncoderFollower(leftTraj);
-    EncoderFollower rightEncFollower = new EncoderFollower(rightTraj);
-  }
-
   public double getLeftEncPos(){
-    return leftSideEnc.getPosition();
+    return leftNeoEnc.getPosition();
   }
   public double getLeftEncVel(){
-    return leftSideEnc.getVelocity();
+    return leftNeoEnc.getVelocity();
   }
   public double getRightEncPos(){
-    return rightSideEnc.getPosition();
+    return rightNeoEnc.getPosition();
   }
   public double getRightEncVel(){
-    return rightSideEnc.getVelocity();
+    return rightNeoEnc.getVelocity();
   }
   public double getGyroAngle(){
     return gyro.getAngle();
