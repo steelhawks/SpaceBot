@@ -7,7 +7,6 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
@@ -24,6 +23,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Constants;
 import frc.robot.Robot;
+import frc.robot.commands.Drivetrain.DiffDrive;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.PathfinderFRC;
 import jaci.pathfinder.Trajectory;
@@ -32,16 +32,6 @@ import jaci.pathfinder.followers.EncoderFollower;
 public class Drivetrain extends Subsystem {
 
   static Constants constants = Constants.getInstance();
-  
-  /*TALON CODE THAT IS UNUSED BECAUSE WE ARE USING SPARKS
-  //TALON SRX LEFT MOTORS
-  public WPI_TalonSRX frontLeftM = new WPI_TalonSRX(constants.frontLeftMPort);
-  public WPI_TalonSRX midLeftM = new WPI_TalonSRX(constants.midLeftMPort);
-  public WPI_TalonSRX rearLeftM = new WPI_TalonSRX(constants.rearLeftMPort);
-  //TALON SRX RIGHT MOTORS
-  public WPI_TalonSRX frontRightM = new WPI_TalonSRX(constants.frontRightMPort);
-  public WPI_TalonSRX midRightM = new WPI_TalonSRX(constants.midRightMPort);
-  public WPI_TalonSRX rearRightM = new WPI_TalonSRX(constants.rearRightMPort);*/
 
   //SPARK MAX LEFT MOTORS
   public CANSparkMax frontLeftM = new CANSparkMax(constants.frontLeftMPort, MotorType.kBrushless);
@@ -84,8 +74,7 @@ public class Drivetrain extends Subsystem {
   }
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+    setDefaultCommand(new DiffDrive());
   }
 
   //DRIVING METHOD
@@ -104,17 +93,17 @@ public class Drivetrain extends Subsystem {
     }
   }
 
-  public double getLeftEncPos(){
-    return leftNeoEnc.getPosition();
+  public double getLeftEncRate(){
+    return leftEnc.getRate();
   }
-  public double getLeftEncVel(){
-    return leftNeoEnc.getVelocity();
+  public double getLeftEncDist(){
+    return leftEnc.getDistance();
   }
-  public double getRightEncPos(){
-    return rightNeoEnc.getPosition();
+  public double getRightEncRate(){
+    return rightEnc.getRate();
   }
-  public double getRightEncVel(){
-    return rightNeoEnc.getVelocity();
+  public double getRightEncDist(){
+    return rightEnc.getDistance();
   }
   public double getGyroAngle(){
     return gyro.getAngle();

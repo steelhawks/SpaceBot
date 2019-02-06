@@ -48,7 +48,7 @@ public class PathWeaverTest extends Command {
   protected void initialize() {
     leftEncFollower = new EncoderFollower(leftTraj);
     rightEncFollower = new EncoderFollower(rightTraj);
-    
+     
     leftEncFollower.reset();
     rightEncFollower.reset();
 

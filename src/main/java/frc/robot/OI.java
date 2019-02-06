@@ -21,6 +21,7 @@ public class OI {
   Constants constants = Constants.getInstance();
 
   public Joystick driveJS = new Joystick(constants.driveJSPort);
+  public Gamepad gamepad = new Gamepad(constants.gamepadPort);
 
   public OI(){
     //DRIVER JOYSTICK BUTTONS

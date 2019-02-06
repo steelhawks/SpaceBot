@@ -22,32 +22,32 @@ public class Constants {
     public static final int driveJSPort = 0;
     public static final int gamepadPort = 1;
     
-    //RIGHT DRIVETRAIN MOTOR PORTS
+    //RIGHT DRIVETRAIN MOTOR PORTS - SPARK
     public static final int frontRightMPort = 0;
     public static final int midRightMPort = 1;
     public static final int rearRightMPort = 2;
 
-    //LEFT DRIVETRAIN MOTOR PORTS
+    //LEFT DRIVETRAIN MOTOR PORTS - SPARK
     public static final int frontLeftMPort = 3;
     public static final int midLeftMPort = 4;
     public static final int rearLeftMPort = 5;
 
-    //CLIMBER MOTOR PORTS
-    public static final int actuatorMPortA = 6;
-    public static final int actuatorMPortB = 7;
-    public static final int actuatorMPortC = 8;
-    public static final int actuatorMPortD = 9;
-    public static final int dropdownMPort = 10;
+    //ELEVATOR MOTOR PORTS - TALON 
+    public static final int elevatorMPortA = 6;
+    public static final int elevatorMPortB = 7;
+
+    //ARM MOTOR PORTS - TALON
+    public static final int leftArmMPort = 8;
+    public static final int rightArmMPort = 9;
+    public static final int pivotMPort = 10;
     
-    //ARM MOTOR PORTS
-    public static final int leftArmMPort = 11;
-    public static final int rightArmMPort = 12;
-    public static final int pivotMPort = 13;
-
-    //ELEVATOR MOTOR PORTS
-    public static final int elevatorMPortA = 14;
-    //public static final int elevatorMPortB = 15; -- MAY OR MAY NOT BE NEEDED
-
+    //CLIMBER MOTOR PORTS - ONE TALON, FOUR SPARK
+    public static final int dropdownMPort = 11;
+    public static final int actuatorMPortA = 12;
+    public static final int actuatorMPortB = 13;
+    public static final int actuatorMPortC = 14;
+    public static final int actuatorMPortD = 15;
+    
     //DRIVETRAIN SOLENOID PORTS
     public static final int shiftSolPortOn = 0;
     public static final int shiftSolPortOff = 1;
@@ -55,13 +55,15 @@ public class Constants {
     //ARM SOLENOID PORTS
     public static final int armSolPortOn = 2;
     public static final int armSolPortOff = 3;
+    public static final int hatchSolPortOn = 4;
+    public static final int hatchSolPortOff = 5;
 
     //DRIVER JOYSTICK BUTTONS
     public static final int shiftB = 1;
 
     //OPTICAL ENCODER PORTS
     public static final int leftEncPortA = 0;
-    public static final int leftEncPortB = 1;
+    public static final int leftEncPortB = 1; 
     public static final int rightEncPortA = 2;
     public static final int rightEncPortB = 3;
     

@@ -52,11 +52,11 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
         //OUTPUTTING LEFT SIDE DRIVETRAIN ENCODER VALUES
-        SmartDashboard.putNumber("Left NEO Encoder Position", Robot.drivetrain.getLeftEncPos());
-        SmartDashboard.putNumber("Left NEO Encoder Velocity", Robot.drivetrain.getLeftEncVel());
+        SmartDashboard.putNumber("Left Enc Rate", Robot.drivetrain.getLeftEncRate());
+        SmartDashboard.putNumber("Left Enc Distance", Robot.drivetrain.getLeftEncDist());
         //OUTPUTTING RIGHT SIDE DRIVETRAIN ENCODER VALUES
-        SmartDashboard.putNumber("Right NEO Encoder Position", Robot.drivetrain.getRightEncPos());
-        SmartDashboard.putNumber("Right NEO Encoder Velocity", Robot.drivetrain.getRightEncVel());
+        SmartDashboard.putNumber("Right Enc Rate", Robot.drivetrain.getRightEncRate());
+        SmartDashboard.putNumber("Right Enc Distance", Robot.drivetrain.getRightEncDist());
         //OUTPUTTING LEFT SIDE DRIVETRAIN VOLTAGE VALUES
         SmartDashboard.putNumber("Front Left Motor Voltage", Robot.drivetrain.frontLeftM.getBusVoltage());
         SmartDashboard.putNumber("Mid Left Motor Voltage", Robot.drivetrain.midLeftM.getBusVoltage());
