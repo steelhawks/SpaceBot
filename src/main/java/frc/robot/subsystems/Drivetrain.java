@@ -81,7 +81,7 @@ public class Drivetrain extends Subsystem {
   public void arcadeDrive(Joystick stick) {
     double y = stick.getY();
     double rotate = stick.getTwist();
-    diffDrive.arcadeDrive(y, rotate);
+    diffDrive.arcadeDrive(y, -rotate);
   }
 
   //SHIFTING METHOD
@@ -106,7 +106,7 @@ public class Drivetrain extends Subsystem {
     return rightEnc.getDistance();
   }
   public double getGyroAngle(){
-    return gyro.getAngle();
+    return gyro.getAngle(); 
   }
   public double getGyroAxis(){
     return gyro.getBoardYawAxis().board_axis.getValue();
