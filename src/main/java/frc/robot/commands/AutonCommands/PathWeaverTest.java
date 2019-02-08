@@ -36,8 +36,8 @@ public class PathWeaverTest extends Command {
   public PathWeaverTest(String pathName) {
     requires(Robot.drivetrain);
     //LEFT SWAPPED WITH RIGHT DUE TO A BUG IN PATHWEAVER
-    leftTraj = PathfinderFRC.getTrajectory("/home/lvuser/deploy/" + pathName + ".right");
-    rightTraj = PathfinderFRC.getTrajectory("/home/lvuser/deploy/" + pathName + ".left");
+    leftTraj = PathfinderFRC.getTrajectory(pathName + ".right");
+    rightTraj = PathfinderFRC.getTrajectory(pathName + ".left");
     notifier = new Notifier(this::followPath);
     //MAKING SURE IT GETS PAST THIS STEP
     System.out.println("Path loaded and ready to reploy.");
