@@ -7,14 +7,25 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-/**
- * Add your docs here.
- */
+import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Constants;
+
 public class Climber extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+
+  static Constants constants = Constants.getInstance();
+
+  //SPARK MAX CLIMBER MOTORS
+  public CANSparkMax actuatorMA = new CANSparkMax(constants.actuatorMPortA, MotorType.kBrushless);
+  public CANSparkMax actuatorMB = new CANSparkMax(constants.actuatorMPortB, MotorType.kBrushless);
+  public CANSparkMax actuatorMC = new CANSparkMax(constants.actuatorMPortC, MotorType.kBrushless);
+  public CANSparkMax actuatorMD = new CANSparkMax(constants.actuatorMPortD, MotorType.kBrushless);
+
+  //TALON SRX DROPDOWN MOTOR
+  public WPI_TalonSRX dropdownM = new WPI_TalonSRX(constants.dropdownMPort);
 
   @Override
   public void initDefaultCommand() {

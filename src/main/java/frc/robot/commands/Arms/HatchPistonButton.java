@@ -5,15 +5,15 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Drivetrain;
+package frc.robot.commands.Arms;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class ShiftGear extends Command {
+public class HatchPistonButton extends Command {
 
-  public ShiftGear() {
-    requires(Robot.drivetrain);
+  public HatchPistonButton() {
+    requires(Robot.arms);
   }
 
   @Override
@@ -22,7 +22,7 @@ public class ShiftGear extends Command {
 
   @Override
   protected void execute() {
-    Robot.drivetrain.shiftGears();
+    Robot.arms.hatchPiston();
   }
 
   @Override

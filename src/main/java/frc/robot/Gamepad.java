@@ -24,10 +24,10 @@ public class Gamepad extends Joystick{
     public static final int kGamepadRightStickY = 5;
 
     //GAMEPAD BUTTONS
-    public static final int kGamepadButtonA = 1;
-    public static final int kGamepadButtonB = 2;
-    public static final int kGamepadButtonX = 3;
-    public static final int kGamepadButtonY = 4;
+    public static final int kGamepadButtonA = 1; //BOTTOM BUTTON
+    public static final int kGamepadButtonB = 2; //RIGHT BUTTON
+    public static final int kGamepadButtonX = 3; //LEFT BUTTON
+    public static final int kGamepadButtonY = 4; //TOP BUTTON
     public static final int kGamepadButtonShoulderL = 5;
     public static final int kGamepadButtonShoulderR = 6;
     public static final int kGamepadButtonBack = 7;

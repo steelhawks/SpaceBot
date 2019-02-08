@@ -61,11 +61,20 @@ public class Constants {
     //DRIVER JOYSTICK BUTTONS
     public static final int shiftB = 1;
 
+    //OPERATOR GAMEPAD BUTTONS
+    public static final int armPistonB = 2;
+    public static final int hatchPistonB = 4;
+    public static final int armOuttakeB =  5;
+    public static final int armIntakeB = 6;
+
     //OPTICAL ENCODER PORTS
     public static final int leftEncPortA = 0;
     public static final int leftEncPortB = 1; 
     public static final int rightEncPortA = 2;
     public static final int rightEncPortB = 3;
+
+    //IR PORT
+    public static final int cubeIRPort = 1;
     
     //PATHWEAVER CONSTANTS
     public static final int ticksPerRev = 256;

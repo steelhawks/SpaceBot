@@ -64,8 +64,8 @@ public class Drivetrain extends Subsystem {
   public Encoder leftEnc = new Encoder(constants.leftEncPortA, constants.leftEncPortB, false, EncodingType.k4X);
   public Encoder rightEnc = new Encoder(constants.rightEncPortA, constants.rightEncPortB, false, EncodingType.k4X);
 
+  //DRIVETRAIN CONSTRUCTOR
   public Drivetrain(){
-    //SETTING DEFAULTS FOR THE ROBOT
     resetGyro();
     leftEnc.reset();
     rightEnc.reset();

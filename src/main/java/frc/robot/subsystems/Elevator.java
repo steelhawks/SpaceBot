@@ -7,18 +7,29 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
+import frc.robot.Gamepad;
 
 public class Elevator extends Subsystem {
   
   Constants constants = Constants.getInstance();
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+  
+  WPI_TalonSRX elevatorMA = new WPI_TalonSRX(constants.elevatorMPortA);
+  WPI_TalonSRX elevatorMB = new WPI_TalonSRX(constants.elevatorMPortB);
+
+  SpeedControllerGroup elevatorMotors = new SpeedControllerGroup(elevatorMA, elevatorMB);
 
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
+  }
+
+  public void elevatorGamepad(Gamepad F310) {
   }
 }
