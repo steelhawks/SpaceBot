@@ -5,16 +5,19 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Arms;
+package frc.robot.commands.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Constants;
 import frc.robot.Robot;
 
-public class ArmPistonButton extends Command {
+public class ElevatorGamepad extends Command {
 
-  public ArmPistonButton() {
+  Constants constants = Constants.getInstance();
+
+  public ElevatorGamepad() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.arms);
+    requires(Robot.elevator);
   }
 
   // Called just before this Command runs the first time
@@ -25,7 +28,7 @@ public class ArmPistonButton extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.arms.armPistons();
+    Robot.elevator.elevatorGamepad(Robot.oi.gamepad);
   }
 
   // Make this return true when this Command no longer needs to run execute()

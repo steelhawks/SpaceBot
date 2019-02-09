@@ -9,26 +9,23 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.hal.sim.mockdata.AnalogInDataJNI;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
-import frc.robot.Gamepad;
 
-/**
- * Add your docs here.
- */
 public class Arms extends Subsystem {
 
-  Constants constants = Constants.getInstance();
+  static Constants constants = Constants.getInstance();
 
   //ARM MOTOR TALONS
   public WPI_TalonSRX leftArmM = new WPI_TalonSRX(constants.leftArmMPort);
   public WPI_TalonSRX rightArmM = new WPI_TalonSRX(constants.rightArmMPort);
+
   //ARM SOLENOIDS
   public DoubleSolenoid armSol = new DoubleSolenoid(constants.armSolPortOn, constants.armSolPortOff);
   public DoubleSolenoid hatchSol = new DoubleSolenoid(constants.hatchSolPortOn, constants.hatchSolPortOff);
+
   //IR SENSOR (IF WE USE IT)
   public AnalogInput cubeIR = new AnalogInput(constants.cubeIRPort);
 
@@ -40,7 +37,6 @@ public class Arms extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    // setDefaultCommand(new MySpecialCommand());
   }
 
   //INTAKING METHOD

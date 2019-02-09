@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutonCommands.PathWeaverTest;
+import frc.robot.subsystems.ArmPivot;
 import frc.robot.subsystems.Arms;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
@@ -26,6 +27,7 @@ public class Robot extends TimedRobot {
   public static final Arms arms = new Arms();
   public static final Climber climber = new Climber();
   public static final Elevator elevator = new Elevator();
+  public static final ArmPivot pivot = new ArmPivot();
   public static OI oi = new OI();
 
   Command m_autonomousCommand;
@@ -77,6 +79,8 @@ public class Robot extends TimedRobot {
         //OUTPUTTING GYRO VALUES
         SmartDashboard.putNumber("Gyro Angle", Robot.drivetrain.getGyroAngle());
         SmartDashboard.putNumber("Gyro Axis", Robot.drivetrain.getGyroAxis());
+        //OUTPUTTING PIVOT ENCODER VALUES
+        SmartDashboard.putNumber("Pivot Encoder Position", Robot.pivot.pivotEncPos);
   }
 
   /**

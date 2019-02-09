@@ -15,19 +15,13 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Constants;
-import frc.robot.Robot;
 import frc.robot.commands.Drivetrain.DiffDrive;
-import jaci.pathfinder.Pathfinder;
-import jaci.pathfinder.PathfinderFRC;
-import jaci.pathfinder.Trajectory;
-import jaci.pathfinder.followers.EncoderFollower;
 
 public class Drivetrain extends Subsystem {
 
@@ -65,13 +59,13 @@ public class Drivetrain extends Subsystem {
   public Encoder rightEnc = new Encoder(constants.rightEncPortA, constants.rightEncPortB, false, EncodingType.k4X);
 
   //DRIVETRAIN CONSTRUCTOR
-  public Drivetrain(){
+  public Drivetrain() {
     resetGyro();
     leftEnc.reset();
     rightEnc.reset();
     shiftSol.set(DoubleSolenoid.Value.kForward);
-
   }
+
   @Override
   public void initDefaultCommand() {
     setDefaultCommand(new DiffDrive());
@@ -85,7 +79,7 @@ public class Drivetrain extends Subsystem {
   }
 
   //SHIFTING METHOD
-  public void shiftGears(){
+  public void shiftGears() {
     if(shiftSol.get() == DoubleSolenoid.Value.kForward) {
       shiftSol.set(DoubleSolenoid.Value.kReverse);
     } else {
@@ -93,25 +87,31 @@ public class Drivetrain extends Subsystem {
     }
   }
 
-  public double getLeftEncRate(){
+  public double getLeftEncRate() {
     return leftEnc.getRate();
   }
-  public double getLeftEncDist(){
+
+  public double getLeftEncDist() {
     return leftEnc.getDistance();
   }
-  public double getRightEncRate(){
+
+  public double getRightEncRate() {
     return rightEnc.getRate();
   }
-  public double getRightEncDist(){
+
+  public double getRightEncDist() {
     return rightEnc.getDistance();
   }
-  public double getGyroAngle(){
+
+  public double getGyroAngle() {
     return gyro.getAngle(); 
   }
-  public double getGyroAxis(){
+
+  public double getGyroAxis() {
     return gyro.getBoardYawAxis().board_axis.getValue();
   }
-  public static void resetGyro(){
+
+  public static void resetGyro() {
     gyro.reset();
     gyro.zeroYaw();
   }

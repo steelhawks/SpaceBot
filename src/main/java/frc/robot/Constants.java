@@ -75,6 +75,10 @@ public class Constants {
 
     //IR PORT
     public static final int cubeIRPort = 1;
+
+    //LIMIT SWITCH PORTS
+    public static final int topLimitPort = 4;
+    public static final int bottomLimtPort = 5;
     
     //PATHWEAVER CONSTANTS
     public static final int ticksPerRev = 256;
