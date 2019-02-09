@@ -79,5 +79,5 @@ public class Constants {
     //PATHWEAVER CONSTANTS
     public static final int ticksPerRev = 256;
     public static final double wheelDiameter = 6.0 / 12.0;
-    public static final double maxVel = 12.0;
+    public static final double maxVel = 14.42;
 }
