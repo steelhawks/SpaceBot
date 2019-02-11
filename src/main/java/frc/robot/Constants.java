@@ -78,7 +78,8 @@ public class Constants {
 
     //LIMIT SWITCH PORTS
     public static final int topLimitPort = 4;
-    public static final int bottomLimtPort = 5;
+    public static final int bottomLimitPort = 5;
+    public static final int pivotLimitPort = 6;
     
     //PATHWEAVER CONSTANTS
     public static final int ticksPerRev = 256;

@@ -30,7 +30,7 @@ public class Elevator extends Subsystem {
 
   //LIMIT SWITCHES
   public DigitalInput topLimit = new DigitalInput(constants.topLimitPort);
-  public DigitalInput bottomLimit = new DigitalInput(constants.bottomLimtPort);
+  public DigitalInput bottomLimit = new DigitalInput(constants.bottomLimitPort);
 
   //ELEVATOR CONSTRUCTOR
   public Elevator() {
