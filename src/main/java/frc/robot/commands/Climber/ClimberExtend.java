@@ -5,19 +5,15 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Pivot;
+package frc.robot.commands.Climber;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Constants;
 import frc.robot.Robot;
 
-public class PivotGamepad extends Command {
-
-  Constants constants = Constants.getInstance();
-
-  public PivotGamepad() {
+public class ClimberExtend extends Command {
+  public ClimberExtend() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.pivot);
+    requires(Robot.climber);
   }
 
   // Called just before this Command runs the first time
@@ -28,13 +24,13 @@ public class PivotGamepad extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.pivot.pivotGamepad(Robot.oi.gamepad);
+    Robot.climber.climberExtend();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true

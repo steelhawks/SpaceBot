@@ -32,7 +32,6 @@ public class Climber extends Subsystem {
   public WPI_TalonSRX actuatorMC = new WPI_TalonSRX(constants.actuatorMPortC);
   public WPI_TalonSRX actuatorMD = new WPI_TalonSRX(constants.actuatorMPortD);
 
-
   //TALON SRX DROPDOWN MOTOR
   public WPI_TalonSRX dropdownM = new WPI_TalonSRX(constants.dropdownMPort);
 
@@ -65,7 +64,7 @@ public class Climber extends Subsystem {
 
   //ACTIVATE DROPDOWN MOTOR
   public void dropdownMotor() {
-    
+    dropdownM.set(0.75);
   }
 
   //

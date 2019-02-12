@@ -7,11 +7,9 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
 import frc.robot.Gamepad;
@@ -22,11 +20,7 @@ public class Elevator extends Subsystem {
   static Constants constants = Constants.getInstance();
   
   //ELEVATOR MOTOR TALONS
-  public WPI_TalonSRX elevatorMA = new WPI_TalonSRX(constants.elevatorMPortA);
-  public WPI_TalonSRX elevatorMB = new WPI_TalonSRX(constants.elevatorMPortB);
-
-  //SPEED CONTROLLER GROUP
-  public SpeedControllerGroup elevatorMotors = new SpeedControllerGroup(elevatorMA, elevatorMB);
+  public CANSparkMax elevatorM =  new CANSparkMax(constants.elevatorMPort, MotorType.kBrushless);
 
   //LIMIT SWITCHES
   public DigitalInput topLimit = new DigitalInput(constants.topLimitPort);
@@ -59,12 +53,12 @@ public class Elevator extends Subsystem {
     } else {
       y = F310.getLeftY();
     }
-    elevatorMotors.set(y);
+    elevatorM.set(y);
   }
 
   //ELEVATOR STOP METHOD
   public void stopElevator() {
-    elevatorMotors.set(0);
+    elevatorM.set(0);
   }
 
 }

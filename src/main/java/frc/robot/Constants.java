@@ -32,21 +32,20 @@ public class Constants {
     public static final int midLeftMPort = 4;
     public static final int rearLeftMPort = 5;
 
-    //ELEVATOR MOTOR PORTS - TALON 
-    public static final int elevatorMPortA = 6;
-    public static final int elevatorMPortB = 7;
+    //ELEVATOR MOTOR PORT - SPARK
+    public static final int elevatorMPort = 6;
+
+    //CLIMBER MOTOR PORTS - FOUR SPARK, ONE TALON
+    public static final int actuatorMPortA = 7;
+    public static final int actuatorMPortB = 8;
+    public static final int actuatorMPortC = 9;
+    public static final int actuatorMPortD = 10;
+    public static final int dropdownMPort = 11;
 
     //ARM MOTOR PORTS - TALON
-    public static final int leftArmMPort = 8;
-    public static final int rightArmMPort = 9;
-    public static final int pivotMPort = 10;
-    
-    //CLIMBER MOTOR PORTS - ONE TALON, FOUR SPARK
-    public static final int dropdownMPort = 11;
-    public static final int actuatorMPortA = 12;
-    public static final int actuatorMPortB = 13;
-    public static final int actuatorMPortC = 14;
-    public static final int actuatorMPortD = 15;
+    public static final int leftArmMPort = 12;
+    public static final int rightArmMPort = 13;
+    public static final int pivotMPort = 14;
     
     //DRIVETRAIN SOLENOID PORTS
     public static final int shiftSolPortOn = 0;
