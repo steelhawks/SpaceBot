@@ -18,6 +18,12 @@ public class Constants {
       return instance;
     }
 
+    //ROBOT POSITION 
+    public static final int autonPos = 1;
+
+    //AUTONOMOUS BOOLEANS
+    public static boolean autoArm;
+
     //JOYSTICK PORTS
     public static final int driveJSPort = 0;
     public static final int gamepadPort = 1;
@@ -73,7 +79,7 @@ public class Constants {
     public static final int rightEncPortB = 3;
 
     //IR PORT
-    public static final int cubeIRPort = 1;
+    public static final int cargoIRPort = 1;
 
     //LIMIT SWITCH PORTS
     public static final int topLimitPort = 4;

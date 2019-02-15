@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -20,20 +21,23 @@ public class Climber extends Subsystem {
   static Constants constants = Constants.getInstance();
 
   /*
-  //SPARK MAX CLIMBER MOTORS
+  //SPARK MAX CLIMBER MOTORS - BRUSHLESS
   public CANSparkMax actuatorMA = new CANSparkMax(constants.actuatorMPortA, MotorType.kBrushless);
   public CANSparkMax actuatorMB = new CANSparkMax(constants.actuatorMPortB, MotorType.kBrushless);
   public CANSparkMax actuatorMC = new CANSparkMax(constants.actuatorMPortC, MotorType.kBrushless);
   public CANSparkMax actuatorMD = new CANSparkMax(constants.actuatorMPortD, MotorType.kBrushless);*/
 
-  //TALON SRX CLIMBER MOTORS
-  public WPI_TalonSRX actuatorMA = new WPI_TalonSRX(constants.actuatorMPortA);
-  public WPI_TalonSRX actuatorMB = new WPI_TalonSRX(constants.actuatorMPortB);
-  public WPI_TalonSRX actuatorMC = new WPI_TalonSRX(constants.actuatorMPortC);
-  public WPI_TalonSRX actuatorMD = new WPI_TalonSRX(constants.actuatorMPortD);
+  //SPARK MAX CLIMBER MOTORS - BRUSHED
+  public CANSparkMax actuatorMA = new CANSparkMax(constants.actuatorMPortA, MotorType.kBrushed);
+  public CANSparkMax actuatorMB = new CANSparkMax(constants.actuatorMPortB, MotorType.kBrushed);
+  public CANSparkMax actuatorMC = new CANSparkMax(constants.actuatorMPortC, MotorType.kBrushed);
+  public CANSparkMax actuatorMD = new CANSparkMax(constants.actuatorMPortD, MotorType.kBrushed);
 
   //TALON SRX DROPDOWN MOTOR
   public WPI_TalonSRX dropdownM = new WPI_TalonSRX(constants.dropdownMPort);
+
+  //NEO MOTOR ENCODER
+  public CANEncoder actuatorNeoEnc = actuatorMA.getEncoder();
 
   //CLIMBER CONSTRUCTOR
   public Climber() {

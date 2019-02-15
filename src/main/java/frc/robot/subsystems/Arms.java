@@ -27,7 +27,7 @@ public class Arms extends Subsystem {
   public DoubleSolenoid hatchSol = new DoubleSolenoid(constants.hatchSolPortOn, constants.hatchSolPortOff);
 
   //IR SENSOR (IF WE USE IT)
-  public AnalogInput cubeIR = new AnalogInput(constants.cubeIRPort);
+  public AnalogInput cargoIR = new AnalogInput(constants.cargoIRPort);
 
   //ARMS CONSTRUCTOR
   public Arms() {

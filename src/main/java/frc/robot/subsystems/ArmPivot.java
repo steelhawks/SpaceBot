@@ -47,7 +47,7 @@ public class ArmPivot extends Subsystem {
         } else {
           y = F310.getRightY();
         }
-      } else if(pivotEncPos < -950) {
+      } else if (pivotEncPos < -950) {
         if(F310.getRightY() > 0) {
           y = 0;
         } else {
@@ -62,7 +62,8 @@ public class ArmPivot extends Subsystem {
       } else {
          y = 0;
         }
-        pivotM.set(y);
+      pivotM.set(y);
+
   if(pivotLimit.get() == false) {
     pivotM.getSensorCollection().setQuadraturePosition(0, 0);
   }
@@ -70,11 +71,21 @@ public class ArmPivot extends Subsystem {
 }
 
 //PIVOTING AUTONOMOUSLY
-public void autoPivot(double pos, boolean up) {
-  if (up == true) {
+public void autoPivot(double pos, boolean dir) {
+  if (dir == true) {
     pivotM.set(-0.5);
-  } else if (up == false) {
+      if (pivotEncPos > pos) {
+        constants.autoArm = true;
+      } if (pivotEncPos <= pos) {
+        constants.autoArm = false;
+    }
+  } else if (dir == false) {
     pivotM.set(0.5);
+      if (-pivotEncPos > pos) {
+        constants.autoArm = true;
+    }  if (-pivotEncPos <= pos) {
+        constants.autoArm = false;
+    }
   }
 }
 
