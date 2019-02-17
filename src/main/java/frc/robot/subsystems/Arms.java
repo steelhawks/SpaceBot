@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
+import frc.robot.commands.Climber.RearClimberGamepad;
 
 public class Arms extends Subsystem {
 
@@ -37,6 +38,7 @@ public class Arms extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
+    setDefaultCommand(new RearClimberGamepad());
   }
 
   //INTAKING METHOD

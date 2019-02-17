@@ -15,6 +15,8 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
+import frc.robot.Gamepad;
+import frc.robot.commands.Climber.FrontClimberGamepad;
 
 public class Climber extends Subsystem {
 
@@ -36,6 +38,11 @@ public class Climber extends Subsystem {
   //TALON SRX DROPDOWN MOTOR
   public WPI_TalonSRX dropdownM = new WPI_TalonSRX(constants.dropdownMPort);
 
+  //SPEED CONTROLLER GROUPS
+  public SpeedControllerGroup allActuators = new SpeedControllerGroup(actuatorMA, actuatorMB, actuatorMC, actuatorMD);
+  public SpeedControllerGroup frontActuators = new SpeedControllerGroup(actuatorMA , actuatorMB);
+  public SpeedControllerGroup rearActuators = new SpeedControllerGroup(actuatorMC, actuatorMD);
+
   //NEO MOTOR ENCODER
   public CANEncoder actuatorNeoEnc = actuatorMA.getEncoder();
 
@@ -44,25 +51,35 @@ public class Climber extends Subsystem {
   }
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+    setDefaultCommand(new FrontClimberGamepad());
+  }
+
+  //FRONT ACTUATORS GAMEPAD
+  public void frontGamepad(Gamepad F310) {
+    double y = 0.0;
+    y = F310.getLeftY();
+    frontActuators.set(y);
+  }
+
+  //REAR ACTUATORS GAMEPAD
+  public void rearGamepad(Gamepad F310) {
+    double y = 0.0;
+    y = F310.getRightY();
+    rearActuators.set(y);
   }
 
   //EXTEND ALL FOUR ACTUATORS
   public void climberExtend() {
-    SpeedControllerGroup allActuators = new SpeedControllerGroup(actuatorMA, actuatorMB, actuatorMC, actuatorMD);
     allActuators.set(1.0);
   }
 
   //RETRACT FRONT ACTUATORS
   public void frontRetract() {
-    SpeedControllerGroup frontActuators = new SpeedControllerGroup(actuatorMA , actuatorMB);
     frontActuators.set(-0.5);
   }
 
   //RETRACT REAR ACTUATORS
   public void rearRetract() {
-    SpeedControllerGroup rearActuators = new SpeedControllerGroup(actuatorMC, actuatorMD);
     rearActuators.set(-0.5);
   }
 
@@ -71,5 +88,8 @@ public class Climber extends Subsystem {
     dropdownM.set(0.75);
   }
 
-  //
+  //STOP DROPDOWN MOTOR
+  public void stopDropdown() {
+    dropdownM.set(0);
+  }
 }

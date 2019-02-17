@@ -15,9 +15,10 @@ import frc.robot.commands.Arms.ArmOuttakeButton;
 import frc.robot.commands.Arms.ArmPistonButton;
 import frc.robot.commands.Arms.ArmStopButton;
 import frc.robot.commands.Arms.HatchPistonButton;
+import frc.robot.commands.Climber.DropdownMotor;
 import frc.robot.commands.Drivetrain.ShiftGear;
 
-/**
+/** 
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
@@ -27,6 +28,7 @@ public class OI {
 
   public Joystick driveJS = new Joystick(constants.driveJSPort);
   public Gamepad gamepad = new Gamepad(constants.gamepadPort);
+  public Gamepad climberpad = new Gamepad(constants.climberpadPort);
 
   public OI(){
     //DRIVER JOYSTICK BUTTONS
@@ -47,6 +49,9 @@ public class OI {
     Button armOuttake = new JoystickButton(gamepad, constants.armOuttakeB);
     armOuttake.whenActive(new ArmOuttakeButton());
     armOuttake.whenInactive(new ArmStopButton());
+
+    Button dropdownButton = new JoystickButton(climberpad, constants.dropdownB);
+    dropdownButton.whenActive(new DropdownMotor());
 
   }
   //// CREATING BUTTONS
