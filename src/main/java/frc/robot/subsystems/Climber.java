@@ -14,6 +14,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Gamepad;
 import frc.robot.commands.Climber.FrontClimberGamepad;
@@ -22,18 +23,11 @@ public class Climber extends Subsystem {
 
   static Constants constants = Constants.getInstance();
 
-  /*
   //SPARK MAX CLIMBER MOTORS - BRUSHLESS
   public CANSparkMax actuatorMA = new CANSparkMax(constants.actuatorMPortA, MotorType.kBrushless);
   public CANSparkMax actuatorMB = new CANSparkMax(constants.actuatorMPortB, MotorType.kBrushless);
   public CANSparkMax actuatorMC = new CANSparkMax(constants.actuatorMPortC, MotorType.kBrushless);
-  public CANSparkMax actuatorMD = new CANSparkMax(constants.actuatorMPortD, MotorType.kBrushless);*/
-
-  //SPARK MAX CLIMBER MOTORS - BRUSHED
-  public CANSparkMax actuatorMA = new CANSparkMax(constants.actuatorMPortA, MotorType.kBrushed);
-  public CANSparkMax actuatorMB = new CANSparkMax(constants.actuatorMPortB, MotorType.kBrushed);
-  public CANSparkMax actuatorMC = new CANSparkMax(constants.actuatorMPortC, MotorType.kBrushed);
-  public CANSparkMax actuatorMD = new CANSparkMax(constants.actuatorMPortD, MotorType.kBrushed);
+  public CANSparkMax actuatorMD = new CANSparkMax(constants.actuatorMPortD, MotorType.kBrushless);
 
   //TALON SRX DROPDOWN MOTOR
   public WPI_TalonSRX dropdownM = new WPI_TalonSRX(constants.dropdownMPort);
@@ -44,10 +38,14 @@ public class Climber extends Subsystem {
   public SpeedControllerGroup rearActuators = new SpeedControllerGroup(actuatorMC, actuatorMD);
 
   //NEO MOTOR ENCODER
-  public CANEncoder actuatorNeoEnc = actuatorMA.getEncoder();
+  public CANEncoder actuatorNeoEncA = actuatorMA.getEncoder();
+  public CANEncoder actuatorNeoEncC = actuatorMC.getEncoder();
 
   //CLIMBER CONSTRUCTOR
   public Climber() {
+    actuatorNeoEncA.setPosition(0);
+    actuatorNeoEncC.setPosition(0);
+    System.out.println("Climber encoders reset.");
   }
   @Override
   public void initDefaultCommand() {
@@ -56,17 +54,30 @@ public class Climber extends Subsystem {
 
   //FRONT ACTUATORS GAMEPAD
   public void frontGamepad(Gamepad F310) {
-    double y = 0.0;
-    y = F310.getLeftY();
-    frontActuators.set(y);
+    double y = 0;
+    if (getNeoPosA() >= 98) {
+      if(F310.getLeftY() > 0) {
+        y = 0;
+      } else {
+        y = F310.getLeftY();
+      }
+    } else if(getNeoPosA() <= 8) {
+      if(F310.getLeftY() < 0) {
+        y = 0;
+      } else {
+        y = F310.getLeftY();
+      }
+    } else {
+      y = F310.getLeftY();
+    }
+      frontActuators.set(y);
   }
-
-  //REAR ACTUATORS GAMEPAD
+  /*//REAR ACTUATORS GAMEPAD
   public void rearGamepad(Gamepad F310) {
     double y = 0.0;
     y = F310.getRightY();
     rearActuators.set(y);
-  }
+  }*/
 
   //EXTEND ALL FOUR ACTUATORS
   public void climberExtend() {
@@ -85,11 +96,19 @@ public class Climber extends Subsystem {
 
   //ACTIVATE DROPDOWN MOTOR
   public void dropdownMotor() {
-    dropdownM.set(0.75);
+    dropdownM.set(0.5);
   }
 
   //STOP DROPDOWN MOTOR
   public void stopDropdown() {
     dropdownM.set(0);
+  }
+
+  public double getNeoPosA() {
+    return actuatorNeoEncA.getPosition();
+  }
+
+  public double getNeoPosC() {
+    return actuatorNeoEncC.getPosition();
   }
 }

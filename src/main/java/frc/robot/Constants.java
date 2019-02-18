@@ -30,7 +30,7 @@ public class Constants {
     public static final int climberpadPort = 2;
     
     //RIGHT DRIVETRAIN MOTOR PORTS - SPARK
-    public static final int frontRightMPort = 0;
+    public static final int frontRightMPort = 20;
     public static final int midRightMPort = 1;
     public static final int rearRightMPort = 2;
 
@@ -39,7 +39,7 @@ public class Constants {
     public static final int midLeftMPort = 4;
     public static final int rearLeftMPort = 5;
 
-    //ELEVATOR MOTOR PORT - SPARK
+    //ELEVATOR MOTOR PORT - TALON
     public static final int elevatorMPort = 6;
 
     //CLIMBER MOTOR PORTS - FOUR SPARK, ONE TALON

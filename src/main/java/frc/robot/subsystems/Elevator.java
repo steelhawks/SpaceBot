@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -20,7 +21,7 @@ public class Elevator extends Subsystem {
   static Constants constants = Constants.getInstance();
   
   //ELEVATOR MOTOR TALONS
-  public CANSparkMax elevatorM =  new CANSparkMax(constants.elevatorMPort, MotorType.kBrushless);
+  public WPI_TalonSRX elevatorM =  new WPI_TalonSRX(constants.elevatorMPort);
 
   //LIMIT SWITCHES
   public DigitalInput topLimit = new DigitalInput(constants.topLimitPort);

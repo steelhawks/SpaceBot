@@ -16,6 +16,7 @@ import frc.robot.commands.Arms.ArmPistonButton;
 import frc.robot.commands.Arms.ArmStopButton;
 import frc.robot.commands.Arms.HatchPistonButton;
 import frc.robot.commands.Climber.DropdownMotor;
+import frc.robot.commands.Climber.StopDropdown;
 import frc.robot.commands.Drivetrain.ShiftGear;
 
 /** 
@@ -52,6 +53,7 @@ public class OI {
 
     Button dropdownButton = new JoystickButton(climberpad, constants.dropdownB);
     dropdownButton.whenActive(new DropdownMotor());
+    dropdownButton.whenInactive(new StopDropdown());
 
   }
   //// CREATING BUTTONS

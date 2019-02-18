@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
+import frc.robot.Gamepad;
+import frc.robot.Robot;
 import frc.robot.commands.Climber.RearClimberGamepad;
 
 public class Arms extends Subsystem {
@@ -40,6 +42,39 @@ public class Arms extends Subsystem {
   public void initDefaultCommand() {
     setDefaultCommand(new RearClimberGamepad());
   }
+  //BEGIN TEMPORARY
+  //REAR ACTUATORS GAMEPAD
+  public void rearGamepad(Gamepad F310) {
+    double y = 0;
+    if (Robot.climber.getNeoPosC() >= 127) {
+      if(F310.getRightY() > 0) {
+        y = 0;
+      } else {
+        y = F310.getRightY();
+      }
+    } else if(Robot.climber.getNeoPosC() <= 3) {
+      if(F310.getRightY() < 0) {
+        y = 0;
+      } else {
+        y = F310.getRightY();
+      }
+    } else {
+      y = F310.getRightY();
+    }
+  /*    frontActuators.set(y);
+  }
+    if (Robot.climber.getNeoPosC() >= 1000) {
+      if(F310.getRightY() < 0) {
+        y = 0;
+      } else {
+        y = F310.getRightY();
+      }
+    } else {
+      y = F310.getRightY();
+    }*/
+      Robot.climber.rearActuators.set(y);
+  }
+  //END TEMPORARY
 
   //INTAKING METHOD
   public void armIntakeButton() {

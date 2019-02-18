@@ -39,6 +39,17 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    Robot.drivetrain.frontLeftM.restoreFactoryDefaults();
+    Robot.drivetrain.midLeftM.restoreFactoryDefaults();
+    Robot.drivetrain.rearLeftM.restoreFactoryDefaults();
+    Robot.drivetrain.frontRightM.restoreFactoryDefaults();
+    Robot.drivetrain.midRightM.restoreFactoryDefaults();
+    Robot.drivetrain.rearRightM.restoreFactoryDefaults();
+    Robot.climber.actuatorMA.restoreFactoryDefaults();
+    Robot.climber.actuatorMB.restoreFactoryDefaults();
+    Robot.climber.actuatorMC.restoreFactoryDefaults();
+    Robot.climber.actuatorMD.restoreFactoryDefaults();
+    System.out.println("Sparks Reset");
     Robot.drivetrain.diffDrive.setSafetyEnabled(false);
     Robot.drivetrain.diffDrive.setExpiration(120);
     SmartDashboard.putData("Auto mode", m_chooser);
@@ -81,6 +92,10 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Gyro Axis", Robot.drivetrain.getGyroAxis());
         //OUTPUTTING PIVOT ENCODER VALUES
         SmartDashboard.putNumber("Pivot Encoder Position", Robot.pivot.pivotEncPos);
+        //OUTPUTTING NEO VALUES FOR CLIMBER
+        SmartDashboard.putNumber("Climb Enc A Pos", Robot.climber.actuatorNeoEncA.getPosition());
+        SmartDashboard.putNumber("Climb Enc C Pos", Robot.climber.actuatorNeoEncC.getPosition());
+ 
   }
 
   /**
