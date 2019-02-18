@@ -12,6 +12,7 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -23,7 +24,7 @@ public class Climber extends Subsystem {
 
   static Constants constants = Constants.getInstance();
 
-  //SPARK MAX CLIMBER MOTORS - BRUSHLESS
+  //SPARK MAX CLIMBER MOTORS
   public CANSparkMax actuatorMA = new CANSparkMax(constants.actuatorMPortA, MotorType.kBrushless);
   public CANSparkMax actuatorMB = new CANSparkMax(constants.actuatorMPortB, MotorType.kBrushless);
   public CANSparkMax actuatorMC = new CANSparkMax(constants.actuatorMPortC, MotorType.kBrushless);
@@ -52,6 +53,27 @@ public class Climber extends Subsystem {
     setDefaultCommand(new FrontClimberGamepad());
   }
 
+  //COMBINED ACTUATORS JOYSTICK
+  public void actuatorsJoystick(Joystick stick) {
+    double y = 0;
+    if (getNeoPosA() >= 98 && getNeoPosC() >= 108) {
+      if(stick.getY() > 0) {
+        y = 0;
+      } else {
+        y = stick.getY();
+      }
+    } else if(getNeoPosA() <= 7 && getNeoPosC() <= 4) {
+      if(stick.getY() < 0) {
+        y = 0;
+      } else {
+        y = stick.getY();
+      }
+    } else {
+      y = stick.getY();
+    }
+    allActuators.set(y);
+  }
+
   //FRONT ACTUATORS GAMEPAD
   public void frontGamepad(Gamepad F310) {
     double y = 0;
@@ -61,7 +83,7 @@ public class Climber extends Subsystem {
       } else {
         y = F310.getLeftY();
       }
-    } else if(getNeoPosA() <= 8) {
+    } else if(getNeoPosA() <= 7) {
       if(F310.getLeftY() < 0) {
         y = 0;
       } else {
@@ -72,6 +94,7 @@ public class Climber extends Subsystem {
     }
       frontActuators.set(y);
   }
+
   /*//REAR ACTUATORS GAMEPAD
   public void rearGamepad(Gamepad F310) {
     double y = 0.0;

@@ -46,13 +46,13 @@ public class Arms extends Subsystem {
   //REAR ACTUATORS GAMEPAD
   public void rearGamepad(Gamepad F310) {
     double y = 0;
-    if (Robot.climber.getNeoPosC() >= 127) {
+    if (Robot.climber.getNeoPosC() >= 108) {
       if(F310.getRightY() > 0) {
         y = 0;
       } else {
         y = F310.getRightY();
       }
-    } else if(Robot.climber.getNeoPosC() <= 3) {
+    } else if(Robot.climber.getNeoPosC() <= 4) {
       if(F310.getRightY() < 0) {
         y = 0;
       } else {
@@ -61,17 +61,6 @@ public class Arms extends Subsystem {
     } else {
       y = F310.getRightY();
     }
-  /*    frontActuators.set(y);
-  }
-    if (Robot.climber.getNeoPosC() >= 1000) {
-      if(F310.getRightY() < 0) {
-        y = 0;
-      } else {
-        y = F310.getRightY();
-      }
-    } else {
-      y = F310.getRightY();
-    }*/
       Robot.climber.rearActuators.set(y);
   }
   //END TEMPORARY
