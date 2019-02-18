@@ -9,7 +9,9 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANEncoder;
+import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -42,15 +44,39 @@ public class Climber extends Subsystem {
   public CANEncoder actuatorNeoEncA = actuatorMA.getEncoder();
   public CANEncoder actuatorNeoEncC = actuatorMC.getEncoder();
 
+  //SPARK PID CONTROLLER
+  public CANPIDController actuatorPID = actuatorMA.getPIDController();
+
+  //PID CONSTANTS
+  public double kP = 0.1;
+  public double kI = 1e-4;
+  public double kD = 1;
+  public double kIz = 0;
+  public double kFF = 0;
+  public double kMaxOutput = 1;
+  public double kMinOutput = -1;
+
   //CLIMBER CONSTRUCTOR
   public Climber() {
     actuatorNeoEncA.setPosition(0);
     actuatorNeoEncC.setPosition(0);
     System.out.println("Climber encoders reset.");
+    //SET PID CONSTANTS
+    actuatorPID.setP(kP);
+    actuatorPID.setI(kI);
+    actuatorPID.setD(kD);
+    actuatorPID.setIZone(kIz);
+    actuatorPID.setFF(kFF);
+    actuatorPID.setOutputRange(kMinOutput, kMaxOutput);
   }
   @Override
   public void initDefaultCommand() {
     setDefaultCommand(new FrontClimberGamepad());
+  }
+
+  //ACTUATOR PID COMMAND
+  public void pidActuator() {
+    actuatorPID.setReference(10, ControlType.kPosition);
   }
 
   //COMBINED ACTUATORS JOYSTICK
@@ -104,17 +130,29 @@ public class Climber extends Subsystem {
 
   //EXTEND ALL FOUR ACTUATORS
   public void climberExtend() {
-    allActuators.set(1.0);
+    if (getNeoPosA() <= 95 || getNeoPosC() <= 105) {
+      allActuators.set(0.75);
+    } else {
+      allActuators.set(0.0);
+    }
   }
 
   //RETRACT FRONT ACTUATORS
   public void frontRetract() {
-    frontActuators.set(-0.5);
+    if (getNeoPosA() >= 0) {
+      frontActuators.set(-0.5);
+    } else {
+      frontActuators.set(0.0);
+    }
   }
 
   //RETRACT REAR ACTUATORS
   public void rearRetract() {
-    rearActuators.set(-0.5);
+    if (getNeoPosC() >= 0) {
+      rearActuators.set(-0.5);
+    } else {
+      rearActuators.set(0.0);
+    }
   }
 
   //ACTIVATE DROPDOWN MOTOR
@@ -125,6 +163,11 @@ public class Climber extends Subsystem {
   //STOP DROPDOWN MOTOR
   public void stopDropdown() {
     dropdownM.set(0);
+  }
+
+  //STOP CLIMBER MOTORS
+  public void stopClimber() {
+    allActuators.set(0);
   }
 
   public double getNeoPosA() {

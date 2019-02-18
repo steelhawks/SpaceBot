@@ -74,6 +74,11 @@ public class Constants {
     public static final int armIntakeB = 6;
     public static final int dropdownB = 2;
 
+    //CLIMBERPAD BUTTONS
+    public static final int allExtendB = 1;
+    public static final int frontRetractB = 4;
+    public static final int rearRetractB = 3;
+
     //OPTICAL ENCODER PORTS
     public static final int leftEncPortA = 0;
     public static final int leftEncPortB = 1; 

@@ -95,7 +95,10 @@ public class Robot extends TimedRobot {
         //OUTPUTTING NEO VALUES FOR CLIMBER
         SmartDashboard.putNumber("Climb Enc A Pos", Robot.climber.actuatorNeoEncA.getPosition());
         SmartDashboard.putNumber("Climb Enc C Pos", Robot.climber.actuatorNeoEncC.getPosition());
- 
+        SmartDashboard.putNumber("Climb Motor A Output", Robot.climber.actuatorMA.getAppliedOutput());
+        SmartDashboard.putNumber("Climb Motor C Output", Robot.climber.actuatorMC.getAppliedOutput());
+
+        SmartDashboard.putNumber("TestEnc", Robot.arms.leftArmM.getSensorCollection().getQuadraturePosition()); 
   }
 
   /**

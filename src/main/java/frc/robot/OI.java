@@ -15,7 +15,11 @@ import frc.robot.commands.Arms.ArmOuttakeButton;
 import frc.robot.commands.Arms.ArmPistonButton;
 import frc.robot.commands.Arms.ArmStopButton;
 import frc.robot.commands.Arms.HatchPistonButton;
+import frc.robot.commands.Climber.ClimberExtend;
 import frc.robot.commands.Climber.DropdownMotor;
+import frc.robot.commands.Climber.FrontRetract;
+import frc.robot.commands.Climber.RearRetract;
+import frc.robot.commands.Climber.StopClimber;
 import frc.robot.commands.Climber.StopDropdown;
 import frc.robot.commands.Drivetrain.ShiftGear;
 
@@ -51,10 +55,22 @@ public class OI {
     armOuttake.whenActive(new ArmOuttakeButton());
     armOuttake.whenInactive(new ArmStopButton());
 
+    //CLIMBERPAD BUTTONS
     Button dropdownButton = new JoystickButton(climberpad, constants.dropdownB);
     dropdownButton.whenActive(new DropdownMotor());
     dropdownButton.whenInactive(new StopDropdown());
 
+    Button allActuatorButton = new JoystickButton(climberpad, constants.allExtendB);
+    allActuatorButton.whenActive(new ClimberExtend());
+    allActuatorButton.whenInactive(new StopClimber());
+    
+    Button frontRetractButton = new JoystickButton(climberpad, constants.frontRetractB);
+    allActuatorButton.whenActive(new FrontRetract());
+    allActuatorButton.whenInactive(new StopClimber());
+    
+    Button rearRetractButton = new JoystickButton(climberpad, constants.rearRetractB);
+    allActuatorButton.whenActive(new RearRetract());
+    allActuatorButton.whenInactive(new StopClimber());
   }
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a
