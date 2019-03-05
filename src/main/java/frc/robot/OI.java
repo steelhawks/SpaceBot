@@ -60,17 +60,16 @@ public class OI {
     dropdownButton.whenActive(new DropdownMotor());
     dropdownButton.whenInactive(new StopDropdown());
 
-    Button allActuatorButton = new JoystickButton(climberpad, constants.allExtendB);
+    /*Button allActuatorButton = new JoystickButton(climberpad, constants.allExtendB);
     allActuatorButton.whenActive(new ClimberExtend());
     allActuatorButton.whenInactive(new StopClimber());
-    
+    */
     Button frontRetractButton = new JoystickButton(climberpad, constants.frontRetractB);
-    allActuatorButton.whenActive(new FrontRetract());
-    allActuatorButton.whenInactive(new StopClimber());
+    frontRetractButton.whenPressed(new FrontRetract());
     
-    Button rearRetractButton = new JoystickButton(climberpad, constants.rearRetractB);
+    /*Button rearRetractButton = new JoystickButton(climberpad, constants.rearRetractB);
     allActuatorButton.whenActive(new RearRetract());
-    allActuatorButton.whenInactive(new StopClimber());
+    allActuatorButton.whenInactive(new StopClimber());*/
   }
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a

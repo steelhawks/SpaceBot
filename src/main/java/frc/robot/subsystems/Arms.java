@@ -46,7 +46,7 @@ public class Arms extends Subsystem {
   //REAR ACTUATORS GAMEPAD
   public void rearGamepad(Gamepad F310) {
     double y = 0;
-    if (Robot.climber.getNeoPosC() >= 108) {
+    if (Robot.climber.getNeoPosC() >= 170) {
       if(F310.getRightY() > 0) {
         y = 0;
       } else {

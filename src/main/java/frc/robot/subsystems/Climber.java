@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANEncoder;
+import com.revrobotics.CANError;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
@@ -42,10 +43,15 @@ public class Climber extends Subsystem {
 
   //NEO MOTOR ENCODER
   public CANEncoder actuatorNeoEncA = actuatorMA.getEncoder();
+  public CANEncoder actuatorNeoEncB = actuatorMB.getEncoder();
   public CANEncoder actuatorNeoEncC = actuatorMC.getEncoder();
+  public CANEncoder actuatorNeoEncD = actuatorMD.getEncoder();
 
   //SPARK PID CONTROLLER
   public CANPIDController actuatorPID = actuatorMA.getPIDController();
+  public CANPIDController actuatorPIDB = actuatorMB.getPIDController();
+  public CANPIDController actuatorPIDC = actuatorMC.getPIDController();
+  public CANPIDController actuatorPIDD = actuatorMD.getPIDController();
 
   //PID CONSTANTS
   public double kP = 0.1;
@@ -56,11 +62,21 @@ public class Climber extends Subsystem {
   public double kMaxOutput = 1;
   public double kMinOutput = -1;
 
+  private int MA_CURRENT_REFERENCE = 0;
+
   //CLIMBER CONSTRUCTOR
   public Climber() {
     actuatorNeoEncA.setPosition(0);
     actuatorNeoEncC.setPosition(0);
     System.out.println("Climber encoders reset.");
+  }
+
+  public void init(){
+    actuatorMA.restoreFactoryDefaults();
+    actuatorMB.restoreFactoryDefaults();
+    actuatorMC.restoreFactoryDefaults();
+    actuatorMD.restoreFactoryDefaults();
+
     //SET PID CONSTANTS
     actuatorPID.setP(kP);
     actuatorPID.setI(kI);
@@ -68,7 +84,33 @@ public class Climber extends Subsystem {
     actuatorPID.setIZone(kIz);
     actuatorPID.setFF(kFF);
     actuatorPID.setOutputRange(kMinOutput, kMaxOutput);
+
+    actuatorPIDB.setP(kP);
+    actuatorPIDB.setI(kI);
+    actuatorPIDB.setD(kD);
+    actuatorPIDB.setIZone(kIz);
+    actuatorPIDB.setFF(kFF);
+    actuatorPIDB.setOutputRange(kMinOutput, kMaxOutput);
+
+    actuatorPIDC.setP(kP);
+    actuatorPIDC.setI(kI);
+    actuatorPIDC.setD(kD);
+    actuatorPIDC.setIZone(kIz);
+    actuatorPIDC.setFF(kFF);
+    actuatorPIDC.setOutputRange(kMinOutput, kMaxOutput);
+
+    actuatorPIDD.setP(kP);
+    actuatorPIDD.setI(kI);
+    actuatorPIDD.setD(kD);
+    actuatorPIDD.setIZone(kIz);
+    actuatorPIDD.setFF(kFF);
+    actuatorPIDD.setOutputRange(kMinOutput, kMaxOutput);
+    
+    actuatorMB.follow(actuatorMA);
+    actuatorMD.follow(actuatorMC);
   }
+
+
   @Override
   public void initDefaultCommand() {
     setDefaultCommand(new FrontClimberGamepad());
@@ -76,7 +118,19 @@ public class Climber extends Subsystem {
 
   //ACTUATOR PID COMMAND
   public void pidActuator() {
-    actuatorPID.setReference(10, ControlType.kPosition);
+    System.out.println(this.MA_CURRENT_REFERENCE);   
+    
+    if( this.MA_CURRENT_REFERENCE != 20 ){
+
+      CANError error = actuatorPID.setReference(20, ControlType.kPosition);
+      CANError errorC = actuatorPIDC.setReference(20, ControlType.kPosition);
+      this.MA_CURRENT_REFERENCE = 20;
+
+    }else{
+      CANError error = actuatorPID.setReference(0, ControlType.kPosition);
+      CANError errorC = actuatorPIDC.setReference(0, ControlType.kPosition);
+      this.MA_CURRENT_REFERENCE = 0;
+    }
   }
 
   //COMBINED ACTUATORS JOYSTICK
@@ -97,13 +151,14 @@ public class Climber extends Subsystem {
     } else {
       y = stick.getY();
     }
-    allActuators.set(y);
+    //allActuators.set(y);
   }
 
   //FRONT ACTUATORS GAMEPAD
   public void frontGamepad(Gamepad F310) {
     double y = 0;
-    if (getNeoPosA() >= 98) {
+
+    if (getNeoPosA() >= 160) {
       if(F310.getLeftY() > 0) {
         y = 0;
       } else {

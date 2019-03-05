@@ -45,10 +45,9 @@ public class Robot extends TimedRobot {
     Robot.drivetrain.frontRightM.restoreFactoryDefaults();
     Robot.drivetrain.midRightM.restoreFactoryDefaults();
     Robot.drivetrain.rearRightM.restoreFactoryDefaults();
-    Robot.climber.actuatorMA.restoreFactoryDefaults();
-    Robot.climber.actuatorMB.restoreFactoryDefaults();
-    Robot.climber.actuatorMC.restoreFactoryDefaults();
-    Robot.climber.actuatorMD.restoreFactoryDefaults();
+
+    Robot.climber.init();
+
     System.out.println("Sparks Reset");
     Robot.drivetrain.diffDrive.setSafetyEnabled(false);
     Robot.drivetrain.diffDrive.setExpiration(120);
