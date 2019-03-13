@@ -33,12 +33,13 @@ public class ArmPivot extends Subsystem {
     pivotM.getSensorCollection().setQuadraturePosition(0,0);
   }
 
+  //DEFAULT COMMAND
   @Override
   public void initDefaultCommand() {
     setDefaultCommand(new PivotGamepad());
   }
 
-  //PIVOTING METHOD
+  //PIVOTING GAMEPAD
   public void pivotGamepad(Gamepad F310) {
     double y = 0;
     if(pivotLimit.get() == false) {
@@ -89,9 +90,28 @@ public void autoPivot(double pos, boolean dir) {
   }
 }
 
+//PIVOT UP BUTTON BOARD
+public void upPivotButton() {
+  if (pivotLimit.get() == false) {
+    pivotM.set(0);
+    pivotM.getSensorCollection().setQuadraturePosition(0, 0);
+  } else {
+    pivotM.set(0.5);
+  }
+}
+
+//PIVOT DOWN BUTTON BOARD
+public void downPivotButton() {
+  if (pivotEncPos < -950) {
+    pivotM.set(0);
+  } else{
+    pivotM.set(-0.5);
+  }
+}
+
 //STOPPING PIVOT MOTOR
 public void stopPivot() {
   pivotM.set(0);
-}
+  }
 }
 

@@ -27,6 +27,9 @@ public class Elevator extends Subsystem {
   public DigitalInput topLimit = new DigitalInput(constants.topLimitPort);
   public DigitalInput bottomLimit = new DigitalInput(constants.bottomLimitPort);
 
+  //POSTION OF ENCODER
+  public double elevatorEncPos = elevatorM.getSensorCollection().getQuadraturePosition();
+
   //ELEVATOR CONSTRUCTOR
   public Elevator() {
 
@@ -55,6 +58,24 @@ public class Elevator extends Subsystem {
       y = F310.getLeftY();
     }
     elevatorM.set(y);
+  }
+
+  //ELEVATOR UP BUTTON BOARD
+  public void elevatorUpButton() {
+    if(topLimit.get() == false) {
+      elevatorM.set(0); 
+    } else {
+      elevatorM.set(0.9);
+    }
+  }
+  //ELEVATOR DOWN BUTTON BOARD
+  public void elevatorDownButton() {
+    if(bottomLimit.get() == false) {
+      elevatorM.set(0);
+      elevatorM.getSensorCollection().setQuadraturePosition(0, 0);
+    } else {
+      elevatorM.set(0.9);
+    }
   }
 
   //ELEVATOR STOP METHOD

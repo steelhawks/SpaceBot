@@ -9,6 +9,7 @@ package frc.robot.commands.Climber;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.subsystems.Climber.ActuatorPosition;
 
 public class FrontRetract extends Command {
   public FrontRetract() {
@@ -25,8 +26,14 @@ public class FrontRetract extends Command {
   @Override
   protected void execute() {
     System.out.print("FrontRetract.execute()");
-    Robot.climber.pidActuator();
+
+    // Fully retract front actuators
+    // Rear stays the same
+
+    Robot.climber.pidActuator(Robot.climber.actuatorPositionLevelThree,
+                              Robot.climber.actuatorPositionLevelThree);
   }
+  
 
   // Make this return true when this Command no longer needs to run execute()
   @Override

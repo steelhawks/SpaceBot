@@ -38,9 +38,10 @@ public class Arms extends Subsystem {
     hatchSol.set(DoubleSolenoid.Value.kForward);
   }
 
+  //DEFAULT COMMAND
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new RearClimberGamepad());
+   // setDefaultCommand(new RearClimberGamepad());
   }
   //BEGIN TEMPORARY
   //REAR ACTUATORS GAMEPAD
@@ -61,7 +62,7 @@ public class Arms extends Subsystem {
     } else {
       y = F310.getRightY();
     }
-      Robot.climber.rearActuators.set(y);
+     // Robot.climber.rearActuators.set(y);
   }
   //END TEMPORARY
 

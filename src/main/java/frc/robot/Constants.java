@@ -61,24 +61,39 @@ public class Constants {
     //ARM SOLENOID PORTS
     public static final int armSolPortOn = 2;
     public static final int armSolPortOff = 3;
-    public static final int hatchSolPortOn = 4;
-    public static final int hatchSolPortOff = 5;
+    public static final int hatchSolPortOn = 5;
+    public static final int hatchSolPortOff = 4;
 
     //DRIVER JOYSTICK BUTTONS
     public static final int shiftB = 1;
+    public static final int dropdownB = 11;
+
+    //BUTTON BOARD BUTTONS
+    public static final int elevatorStartB = 1;
+    public static final int elevatorCargoB = 2;
+
+    public static final int armOpenCloseB = 3;
+
+    public static final int hatchB = 4;
+
+    public static final int pivotUpB = 10;
+    public static final int pivotDownB = 9;
+
+    public static final int armInB = 11;
+    public static final int armOutB = 12;
+    
+    public static final int level3ExtendB = 6;
+    public static final int level2ExtendB = 5;
+    public static final int frontRetractB = 8;
+    public static final int rearRetractB = 7;
 
     //OPERATOR GAMEPAD BUTTONS
-    public static final int armPistonB = 2;
+    /*public static final int armPistonB = 2;
     public static final int hatchPistonB = 4;
     public static final int armOuttakeB =  5;
     public static final int armIntakeB = 6;
-    public static final int dropdownB = 2;
-
-    //CLIMBERPAD BUTTONS
-    public static final int allExtendB = 1;
-    public static final int frontRetractB = 4;
-    public static final int rearRetractB = 3;
-
+    public static final int dropdownB = 2;*/
+    
     //OPTICAL ENCODER PORTS
     public static final int leftEncPortA = 0;
     public static final int leftEncPortB = 1; 

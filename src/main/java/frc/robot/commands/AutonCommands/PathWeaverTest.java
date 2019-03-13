@@ -7,6 +7,8 @@
 
 package frc.robot.commands.AutonCommands;
 
+import java.io.IOException;
+
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Constants;
@@ -33,11 +35,11 @@ public class PathWeaverTest extends Command {
   double kV = 1 / constants.maxVel;
   double kA = 0.0;
 
-  public PathWeaverTest(String pathName) {
+  public PathWeaverTest(String pathName) throws IOException {
     requires(Robot.drivetrain);
     //LEFT SWAPPED WITH RIGHT DUE TO A BUG IN PATHWEAVER
-    leftTraj = PathfinderFRC.getTrajectory(pathName + ".right");
-    rightTraj = PathfinderFRC.getTrajectory(pathName + ".left");
+    leftTraj = PathfinderFRC.getTrajectory(pathName + ".left");
+    rightTraj = PathfinderFRC.getTrajectory(pathName + ".right");
     notifier = new Notifier(this::followPath);
     //MAKING SURE IT GETS PAST THIS STEP
     System.out.println("Path loaded and ready to reploy.");

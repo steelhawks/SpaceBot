@@ -40,33 +40,35 @@ public class OI {
     Button shift = new JoystickButton(driveJS, constants.shiftB);
     shift.whenPressed(new ShiftGear());
 
+    Button dropdownButton = new JoystickButton(driveJS, constants.dropdownB);
+    dropdownButton.whenActive(new DropdownMotor());
+    dropdownButton.whenInactive(new StopDropdown());
+
     //OPERATOR GAMEPAD BUTTONS
-    Button armPiston = new JoystickButton(gamepad, constants.armPistonB);
+    Button armPiston = new JoystickButton(gamepad, constants.armOpenCloseB);
     armPiston.whenPressed(new ArmPistonButton());
 
-    Button hatchPiston = new JoystickButton(gamepad, constants.hatchPistonB);
+    Button hatchPiston = new JoystickButton(gamepad, constants.hatchB);
     hatchPiston.whenPressed(new HatchPistonButton());
 
-    Button armIntake = new JoystickButton(gamepad, constants.armIntakeB);
+    Button armIntake = new JoystickButton(gamepad, constants.armInB);
     armIntake.whenActive(new ArmIntakeButton());
     armIntake.whenInactive(new ArmStopButton());
 
-    Button armOuttake = new JoystickButton(gamepad, constants.armOuttakeB);
+    Button armOuttake = new JoystickButton(gamepad, constants.armOutB);
     armOuttake.whenActive(new ArmOuttakeButton());
     armOuttake.whenInactive(new ArmStopButton());
-
-    //CLIMBERPAD BUTTONS
-    Button dropdownButton = new JoystickButton(climberpad, constants.dropdownB);
-    dropdownButton.whenActive(new DropdownMotor());
-    dropdownButton.whenInactive(new StopDropdown());
 
     /*Button allActuatorButton = new JoystickButton(climberpad, constants.allExtendB);
     allActuatorButton.whenActive(new ClimberExtend());
     allActuatorButton.whenInactive(new StopClimber());
     */
-    Button frontRetractButton = new JoystickButton(climberpad, constants.frontRetractB);
+    /*Button frontRetractButton = new JoystickButton(gamepad, constants.frontRetractB);
     frontRetractButton.whenPressed(new FrontRetract());
     
+    Button rearRetractButton = new JoystickButton(gamepad, constants.rearRetractB);
+    rearRetractButton.whenPressed(new StopClimber());
+    */
     /*Button rearRetractButton = new JoystickButton(climberpad, constants.rearRetractB);
     allActuatorButton.whenActive(new RearRetract());
     allActuatorButton.whenInactive(new StopClimber());*/

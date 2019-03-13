@@ -23,7 +23,15 @@ import frc.robot.Constants;
 import frc.robot.Gamepad;
 import frc.robot.commands.Climber.FrontClimberGamepad;
 
+
 public class Climber extends Subsystem {
+
+  public enum ActuatorPosition {
+    LEVEL_ZERO,
+    LEVEL_ONE, 
+    LEVEL_THREE,
+    DO_NOTHING
+  }
 
   static Constants constants = Constants.getInstance();
 
@@ -63,6 +71,11 @@ public class Climber extends Subsystem {
   public double kMinOutput = -1;
 
   private int MA_CURRENT_REFERENCE = 0;
+
+  public int actuatorPositionLevelZero = 0;
+  public int actuatorPositionLevelThree = 3;
+  public int actuatorPositionLevelTwo = 2;
+  public int actuatorPositionNothing = -1;
 
   //CLIMBER CONSTRUCTOR
   public Climber() {
@@ -113,25 +126,45 @@ public class Climber extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new FrontClimberGamepad());
   }
 
   //ACTUATOR PID COMMAND
-  public void pidActuator() {
-    System.out.println(this.MA_CURRENT_REFERENCE);   
-    
-    if( this.MA_CURRENT_REFERENCE != 20 ){
-
-      CANError error = actuatorPID.setReference(20, ControlType.kPosition);
-      CANError errorC = actuatorPIDC.setReference(20, ControlType.kPosition);
-      this.MA_CURRENT_REFERENCE = 20;
-
-    }else{
-      CANError error = actuatorPID.setReference(0, ControlType.kPosition);
-      CANError errorC = actuatorPIDC.setReference(0, ControlType.kPosition);
-      this.MA_CURRENT_REFERENCE = 0;
+  public void pidActuator(int front, int back) {    
+    System.out.println(this.MA_CURRENT_REFERENCE);
+  // FRONT ACTUATORS
+    if( front == actuatorPositionLevelZero){
+        CANError error = actuatorPID.setReference(0, ControlType.kPosition);
+        this.MA_CURRENT_REFERENCE = 0;
     }
-  }
+    else if( front == actuatorPositionLevelTwo){
+        CANError error = actuatorPID.setReference(20, ControlType.kPosition);
+        this.MA_CURRENT_REFERENCE = 20;
+      }
+
+    else if( front == actuatorPositionLevelThree){
+    System.out.println("Front Set to level Three");
+
+      CANError error = actuatorPID.setReference(40, ControlType.kPosition);
+        this.MA_CURRENT_REFERENCE = 40;
+      }
+
+ // BACK ACTUATORS
+    if( back == actuatorPositionLevelZero ){ 
+        CANError errorC = actuatorPIDC.setReference(0, ControlType.kPosition);
+        this.MA_CURRENT_REFERENCE = 0;
+      }
+
+    else if( back == actuatorPositionLevelTwo){
+        CANError errorC = actuatorPIDC.setReference(20, ControlType.kPosition);      
+        this.MA_CURRENT_REFERENCE = 20;
+      }
+    
+    else if( back == actuatorPositionLevelThree){
+        System.out.println("Rear Three");
+        CANError errorC = actuatorPIDC.setReference(40, ControlType.kPosition);
+        this.MA_CURRENT_REFERENCE = 40;
+      }
+    }
 
   //COMBINED ACTUATORS JOYSTICK
   public void actuatorsJoystick(Joystick stick) {
@@ -173,15 +206,8 @@ public class Climber extends Subsystem {
     } else {
       y = F310.getLeftY();
     }
-      frontActuators.set(y);
+      //frontActuators.set(y);
   }
-
-  /*//REAR ACTUATORS GAMEPAD
-  public void rearGamepad(Gamepad F310) {
-    double y = 0.0;
-    y = F310.getRightY();
-    rearActuators.set(y);
-  }*/
 
   //EXTEND ALL FOUR ACTUATORS
   public void climberExtend() {

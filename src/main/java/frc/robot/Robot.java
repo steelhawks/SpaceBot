@@ -127,7 +127,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = new PathWeaverTest("TestPath");
+    //m_autonomousCommand = new PathWeaverTest("TestPath");
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
