@@ -35,13 +35,12 @@ public class Arms extends Subsystem {
   //ARMS CONSTRUCTOR
   public Arms() {
     armSol.set(DoubleSolenoid.Value.kForward);
-    hatchSol.set(DoubleSolenoid.Value.kForward);
+    hatchSol.set(DoubleSolenoid.Value.kReverse);
   }
 
   //DEFAULT COMMAND
   @Override
   public void initDefaultCommand() {
-   // setDefaultCommand(new RearClimberGamepad());
   }
   //BEGIN TEMPORARY
   //REAR ACTUATORS GAMEPAD

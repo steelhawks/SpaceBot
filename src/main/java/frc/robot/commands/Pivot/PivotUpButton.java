@@ -5,15 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Climber;
+package frc.robot.commands.Pivot;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class FrontClimberGamepad extends Command {
-  public FrontClimberGamepad() {
+public class PivotUpButton extends Command {
+
+  public PivotUpButton() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.climber);
+    requires(Robot.pivot);
   }
 
   // Called just before this Command runs the first time
@@ -24,6 +25,7 @@ public class FrontClimberGamepad extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    Robot.pivot.pivotUpButton();
   }
 
   // Make this return true when this Command no longer needs to run execute()

@@ -13,9 +13,9 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
 import frc.robot.Gamepad;
-import frc.robot.commands.ArmPivot.PivotGamepad;
+import frc.robot.commands.Pivot.PivotGamepad;
 
-public class ArmPivot extends Subsystem {
+public class Pivot extends Subsystem {
 
   static Constants constants = Constants.getInstance();
 
@@ -29,7 +29,7 @@ public class ArmPivot extends Subsystem {
   public double pivotEncPos = pivotM.getSensorCollection().getQuadraturePosition();
   
   //ARM PIVOT CONSTRUCTOR
-  public ArmPivot() {
+  public Pivot() {
     pivotM.getSensorCollection().setQuadraturePosition(0,0);
   }
 
@@ -71,8 +71,32 @@ public class ArmPivot extends Subsystem {
   }
 }
 
+//PIVOT UP BUTTON BOARD
+public void pivotUpButton() {
+  if (pivotLimit.get() == false) {
+    pivotM.set(0);
+    pivotM.getSensorCollection().setQuadraturePosition(0, 0);
+  } else {
+    pivotM.set(0.5);
+  }
+}
+
+//PIVOT DOWN BUTTON BOARD
+public void pivotDownButton() {
+  if (pivotEncPos < -950) {
+    pivotM.set(0);
+  } else{
+    pivotM.set(-0.5);
+  }
+}
+
+//STOPPING PIVOT MOTOR
+public void pivotStop() {
+  pivotM.set(0);
+}
+
 //PIVOTING AUTONOMOUSLY
-public void autoPivot(double pos, boolean dir) {
+public void pivotAuton(double pos, boolean dir) {
   if (dir == true) {
     pivotM.set(-0.5);
       if (pivotEncPos > pos) {
@@ -89,29 +113,4 @@ public void autoPivot(double pos, boolean dir) {
     }
   }
 }
-
-//PIVOT UP BUTTON BOARD
-public void upPivotButton() {
-  if (pivotLimit.get() == false) {
-    pivotM.set(0);
-    pivotM.getSensorCollection().setQuadraturePosition(0, 0);
-  } else {
-    pivotM.set(0.5);
-  }
 }
-
-//PIVOT DOWN BUTTON BOARD
-public void downPivotButton() {
-  if (pivotEncPos < -950) {
-    pivotM.set(0);
-  } else{
-    pivotM.set(-0.5);
-  }
-}
-
-//STOPPING PIVOT MOTOR
-public void stopPivot() {
-  pivotM.set(0);
-  }
-}
-

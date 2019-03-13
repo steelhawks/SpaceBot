@@ -5,36 +5,47 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Climber;
+package frc.robot.commands.Pivot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Constants;
 import frc.robot.Robot;
 
-public class FrontClimberGamepad extends Command {
-  public FrontClimberGamepad() {
+public class PivotAuton extends Command {
+
+  Constants constants = Constants.getInstance();
+  public double setPos;
+  public boolean setDir;
+
+  public PivotAuton(double pos, boolean dir) {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.climber);
+    requires(Robot.pivot);
+    setPos = pos;
+    setDir = dir;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.pivot.pivotM.getSensorCollection().setQuadraturePosition(0, 0);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    Robot.pivot.pivotAuton(setPos, setDir);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return constants.autoArm;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.pivot.pivotStop();
   }
 
   // Called when another command which requires one or more of the same

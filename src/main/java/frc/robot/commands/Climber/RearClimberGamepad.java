@@ -24,7 +24,6 @@ public class RearClimberGamepad extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.arms.rearGamepad(Robot.oi.climberpad);
   }
 
   // Make this return true when this Command no longer needs to run execute()

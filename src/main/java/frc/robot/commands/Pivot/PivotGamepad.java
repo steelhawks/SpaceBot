@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.ArmPivot;
+package frc.robot.commands.Pivot;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Constants;

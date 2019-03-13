@@ -5,47 +5,38 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.ArmPivot;
+package frc.robot.commands.Pivot;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Constants;
 import frc.robot.Robot;
 
-public class AutoPivot extends Command {
+public class PivotStopButton extends Command {
 
-  Constants constants = Constants.getInstance();
-  public double setPos;
-  public boolean setDir;
-
-  public AutoPivot(double pos, boolean dir) {
+  public PivotStopButton() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.pivot);
-    setPos = pos;
-    setDir = dir;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.pivot.pivotM.getSensorCollection().setQuadraturePosition(0, 0);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.pivot.autoPivot(setPos, setDir);
+    Robot.pivot.pivotStop();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return constants.autoArm;
+    return true;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.pivot.stopPivot();
   }
 
   // Called when another command which requires one or more of the same

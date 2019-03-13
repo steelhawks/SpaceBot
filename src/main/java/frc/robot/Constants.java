@@ -27,7 +27,6 @@ public class Constants {
     //JOYSTICK PORTS
     public static final int driveJSPort = 0;
     public static final int gamepadPort = 1;
-    public static final int climberpadPort = 2;
     
     //RIGHT DRIVETRAIN MOTOR PORTS - SPARK
     public static final int frontRightMPort = 20;
@@ -61,32 +60,27 @@ public class Constants {
     //ARM SOLENOID PORTS
     public static final int armSolPortOn = 2;
     public static final int armSolPortOff = 3;
-    public static final int hatchSolPortOn = 5;
-    public static final int hatchSolPortOff = 4;
+    public static final int hatchSolPortOn = 4;
+    public static final int hatchSolPortOff = 5;
 
     //DRIVER JOYSTICK BUTTONS
     public static final int shiftB = 1;
     public static final int dropdownB = 11;
 
     //BUTTON BOARD BUTTONS
-    public static final int elevatorStartB = 1;
-    public static final int elevatorCargoB = 2;
-
-    public static final int armOpenCloseB = 3;
-
-    public static final int hatchB = 4;
-
-    public static final int pivotUpB = 10;
+    public static final int elevatorBottomB = 1;
+    public static final int elevatorUpB = 2;
+    public static final int armPistonB = 3;
+    public static final int hatchPistonB = 4;
+    public static final int levelTwoActuatorB = 5;
+    public static final int levelThreeActuatorB = 6;
+    public static final int rearActuatorRetractB = 7;
+    public static final int frontActuatorRetractB = 8;
     public static final int pivotDownB = 9;
-
-    public static final int armInB = 11;
-    public static final int armOutB = 12;
+    public static final int pivotUpB = 10;
+    public static final int armIntakeB = 11;
+    public static final int armOuttakeB = 12;
     
-    public static final int level3ExtendB = 6;
-    public static final int level2ExtendB = 5;
-    public static final int frontRetractB = 8;
-    public static final int rearRetractB = 7;
-
     //OPERATOR GAMEPAD BUTTONS
     /*public static final int armPistonB = 2;
     public static final int hatchPistonB = 4;
