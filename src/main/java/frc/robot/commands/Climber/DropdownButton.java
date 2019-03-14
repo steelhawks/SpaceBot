@@ -5,16 +5,15 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Drivetrain;
+package frc.robot.commands.Climber;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class ShiftGear extends Command {
-
-  public ShiftGear() {
+public class DropdownButton extends Command {
+  public DropdownButton() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.drivetrain);
+    requires(Robot.climber);
   }
 
   // Called just before this Command runs the first time
@@ -22,10 +21,10 @@ public class ShiftGear extends Command {
   protected void initialize() {
   }
 
-   // Called repeatedly when this Command is scheduled to run
+  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.drivetrain.shiftGears();
+    Robot.climber.dropdownButton();
   }
 
   // Make this return true when this Command no longer needs to run execute()

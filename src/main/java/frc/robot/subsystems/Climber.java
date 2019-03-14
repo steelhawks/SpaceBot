@@ -13,12 +13,12 @@ import com.revrobotics.CANError;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ControlType;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Gamepad;
 import frc.robot.commands.Climber.FrontClimberGamepad;
@@ -70,8 +70,10 @@ public class Climber extends Subsystem {
   public double kMaxOutput = 1;
   public double kMinOutput = -1;
 
+  //CURRENT REFERENCE FOR PID
   private int MA_CURRENT_REFERENCE = 0;
 
+  //CONSTANTS FOR CONTROLLING THE ACTUATORS
   public int actuatorPositionLevelZero = 0;
   public int actuatorPositionLevelThree = 3;
   public int actuatorPositionLevelTwo = 2;
@@ -84,11 +86,19 @@ public class Climber extends Subsystem {
     System.out.println("Climber encoders reset.");
   }
 
+  //INITIALIZE CLIMBER MOTOR AND PID CONTROLLERS
   public void init(){
+    //RESTORE FACTORY DEFAULTS
     actuatorMA.restoreFactoryDefaults();
     actuatorMB.restoreFactoryDefaults();
     actuatorMC.restoreFactoryDefaults();
     actuatorMD.restoreFactoryDefaults();
+
+    //SET MOTORS TO COAST
+    actuatorMA.setIdleMode(IdleMode.kCoast);
+    actuatorMB.setIdleMode(IdleMode.kCoast);
+    actuatorMC.setIdleMode(IdleMode.kCoast);
+    actuatorMD.setIdleMode(IdleMode.kCoast);
 
     //SET PID CONSTANTS
     actuatorPID.setP(kP);
@@ -119,48 +129,53 @@ public class Climber extends Subsystem {
     actuatorPIDD.setFF(kFF);
     actuatorPIDD.setOutputRange(kMinOutput, kMaxOutput);
     
+    //SET FOLLOW MODE
     actuatorMB.follow(actuatorMA);
     actuatorMD.follow(actuatorMC);
   }
-
 
   @Override
   public void initDefaultCommand() {
   }
 
   //ACTUATOR PID COMMAND
-  public void pidActuator(int front, int back) {    
-    System.out.println(this.MA_CURRENT_REFERENCE);
+  public void pidActuator(int front, int back) {   
+  //SET MOTOR CONTROLLERS TO BRAKE 
+    actuatorMA.setIdleMode(IdleMode.kBrake);
+    actuatorMB.setIdleMode(IdleMode.kBrake);
+    actuatorMC.setIdleMode(IdleMode.kBrake);
+    actuatorMD.setIdleMode(IdleMode.kBrake);
+
   // FRONT ACTUATORS
     if( front == actuatorPositionLevelZero){
+        System.out.println("Reset Front");
         CANError error = actuatorPID.setReference(0, ControlType.kPosition);
         this.MA_CURRENT_REFERENCE = 0;
     }
     else if( front == actuatorPositionLevelTwo){
+        System.out.println("Level Two Front");
         CANError error = actuatorPID.setReference(20, ControlType.kPosition);
         this.MA_CURRENT_REFERENCE = 20;
-      }
-
+    }
     else if( front == actuatorPositionLevelThree){
-    System.out.println("Front Set to level Three");
-
+      System.out.println("Level Three Front");
       CANError error = actuatorPID.setReference(40, ControlType.kPosition);
         this.MA_CURRENT_REFERENCE = 40;
-      }
+    }
 
  // BACK ACTUATORS
-    if( back == actuatorPositionLevelZero ){ 
+    if( back == actuatorPositionLevelZero ){
+        System.out.println("Reset Back"); 
         CANError errorC = actuatorPIDC.setReference(0, ControlType.kPosition);
         this.MA_CURRENT_REFERENCE = 0;
-      }
-
+    }
     else if( back == actuatorPositionLevelTwo){
+        System.out.println("Level Two Back");
         CANError errorC = actuatorPIDC.setReference(20, ControlType.kPosition);      
         this.MA_CURRENT_REFERENCE = 20;
-      }
-    
+    }
     else if( back == actuatorPositionLevelThree){
-        System.out.println("Rear Three");
+        System.out.println("Level Three Back");
         CANError errorC = actuatorPIDC.setReference(40, ControlType.kPosition);
         this.MA_CURRENT_REFERENCE = 40;
       }
@@ -209,45 +224,18 @@ public class Climber extends Subsystem {
       //frontActuators.set(y);
   }
 
-  //EXTEND ALL FOUR ACTUATORS
-  public void climberExtend() {
-    if (getNeoPosA() <= 95 || getNeoPosC() <= 105) {
-      allActuators.set(0.75);
-    } else {
-      allActuators.set(0.0);
-    }
-  }
-
-  //RETRACT FRONT ACTUATORS
-  public void frontRetract() {
-    if (getNeoPosA() >= 0) {
-      frontActuators.set(-0.5);
-    } else {
-      frontActuators.set(0.0);
-    }
-  }
-
-  //RETRACT REAR ACTUATORS
-  public void rearRetract() {
-    if (getNeoPosC() >= 0) {
-      rearActuators.set(-0.5);
-    } else {
-      rearActuators.set(0.0);
-    }
-  }
-
   //ACTIVATE DROPDOWN MOTOR
-  public void dropdownMotor() {
+  public void dropdownButton() {
     dropdownM.set(0.5);
   }
 
   //STOP DROPDOWN MOTOR
-  public void stopDropdown() {
+  public void dropdownStop() {
     dropdownM.set(0);
   }
 
   //STOP CLIMBER MOTORS
-  public void stopClimber() {
+  public void climberStop() {
     allActuators.set(0);
   }
 

@@ -68,7 +68,7 @@ public class Constants {
     public static final int dropdownB = 11;
 
     //BUTTON BOARD BUTTONS
-    public static final int elevatorBottomB = 1;
+    public static final int elevatorDownB = 1;
     public static final int elevatorUpB = 2;
     public static final int armPistonB = 3;
     public static final int hatchPistonB = 4;

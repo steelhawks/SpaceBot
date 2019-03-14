@@ -10,8 +10,8 @@ package frc.robot.commands.Climber;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class StopDropdown extends Command {
-  public StopDropdown() {
+public class DropdownStop extends Command {
+  public DropdownStop() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.climber);
   }
@@ -24,7 +24,7 @@ public class StopDropdown extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.climber.stopDropdown();
+    Robot.climber.dropdownStop();
   }
 
   // Make this return true when this Command no longer needs to run execute()

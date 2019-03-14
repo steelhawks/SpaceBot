@@ -13,17 +13,16 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.Arms.ArmIntakeButton;
 import frc.robot.commands.Arms.ArmOuttakeButton;
 import frc.robot.commands.Arms.ArmPistonButton;
-import frc.robot.commands.Arms.ArmStopButton;
+import frc.robot.commands.Arms.ArmStop;
 import frc.robot.commands.Arms.HatchPistonButton;
-import frc.robot.commands.Climber.ClimberExtend;
-import frc.robot.commands.Climber.DropdownMotor;
+import frc.robot.commands.Climber.DropdownButton;
+import frc.robot.commands.Climber.DropdownStop;
 import frc.robot.commands.Climber.FrontRetract;
-import frc.robot.commands.Climber.RearRetract;
-import frc.robot.commands.Climber.StopClimber;
-import frc.robot.commands.Climber.StopDropdown;
-import frc.robot.commands.Drivetrain.ShiftGear;
+import frc.robot.commands.Drivetrain.ShiftGearButton;
+import frc.robot.commands.Elevator.ElevatorDownButton;
+import frc.robot.commands.Elevator.ElevatorUpButton;
 import frc.robot.commands.Pivot.PivotDownButton;
-import frc.robot.commands.Pivot.PivotStopButton;
+import frc.robot.commands.Pivot.PivotStop;
 import frc.robot.commands.Pivot.PivotUpButton;
 
 /** 
@@ -40,11 +39,11 @@ public class OI {
   public OI(){
     //DRIVER JOYSTICK BUTTONS
     Button shift = new JoystickButton(driveJS, constants.shiftB);
-    shift.whenPressed(new ShiftGear());
+    shift.whenPressed(new ShiftGearButton());
 
-    Button dropdownButton = new JoystickButton(driveJS, constants.dropdownB);
-    dropdownButton.whenActive(new DropdownMotor());
-    dropdownButton.whenInactive(new StopDropdown());
+    Button dropdown = new JoystickButton(driveJS, constants.dropdownB);
+    dropdown.whenActive(new DropdownButton());
+    dropdown.whenInactive(new DropdownStop());
 
     //OPERATOR BUTTON BOARD BUTTONS
     Button armPiston = new JoystickButton(gamepad, constants.armPistonB);
@@ -55,19 +54,25 @@ public class OI {
 
     Button armIntake = new JoystickButton(gamepad, constants.armIntakeB);
     armIntake.whenActive(new ArmIntakeButton());
-    armIntake.whenInactive(new ArmStopButton());
+    armIntake.whenInactive(new ArmStop());
 
     Button armOuttake = new JoystickButton(gamepad, constants.armOuttakeB);
     armOuttake.whenActive(new ArmOuttakeButton());
-    armOuttake.whenInactive(new ArmStopButton());
+    armOuttake.whenInactive(new ArmStop());
 
     Button pivotUp = new JoystickButton(gamepad, constants.pivotUpB);
     pivotUp.whenActive(new PivotUpButton());
-    pivotUp.whenInactive(new PivotStopButton());
+    pivotUp.whenInactive(new PivotStop());
 
     Button pivotDown = new JoystickButton(gamepad, constants.pivotDownB);
     pivotDown.whenActive(new PivotDownButton());
-    pivotDown.whenInactive(new PivotStopButton());
+    pivotDown.whenInactive(new PivotStop());
+
+    Button elevatorUp = new JoystickButton(gamepad, constants.elevatorUpB);
+    elevatorUp.whenPressed(new ElevatorUpButton());
+
+    Button elevatorDown = new JoystickButton(gamepad, constants.elevatorDownB);
+    elevatorDown.whenPressed(new ElevatorDownButton());
 
     /*Button frontActuatorRetract = new JoystickButton(gamepad, constants.frontActuatorRetractB);
     frontActuatorRetract.whenPressed(new FrontRetract());

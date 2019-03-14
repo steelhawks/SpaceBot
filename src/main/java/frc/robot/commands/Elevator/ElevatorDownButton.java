@@ -5,15 +5,15 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Climber;
+package frc.robot.commands.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class RearRetract extends Command {
-  public RearRetract() {
+public class ElevatorDownButton extends Command {
+  public ElevatorDownButton() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.climber);
+    requires(Robot.elevator);
   }
 
   // Called just before this Command runs the first time
@@ -24,7 +24,7 @@ public class RearRetract extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.climber.rearRetract();
+    Robot.elevator.elevatorDownButton();
   }
 
   // Make this return true when this Command no longer needs to run execute()

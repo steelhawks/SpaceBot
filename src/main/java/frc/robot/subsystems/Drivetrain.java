@@ -79,7 +79,7 @@ public class Drivetrain extends Subsystem {
   }
 
   //SHIFTING METHOD
-  public void shiftGears() {
+  public void shiftGearButton() {
     if(shiftSol.get() == DoubleSolenoid.Value.kForward) {
       shiftSol.set(DoubleSolenoid.Value.kReverse);
     } else {

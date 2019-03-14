@@ -5,15 +5,15 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Climber;
+package frc.robot.commands.Elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class StopClimber extends Command {
-  public StopClimber() {
+public class ElevatorUpButton extends Command {
+  public ElevatorUpButton() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.climber);
+    requires(Robot.elevator);
   }
 
   // Called just before this Command runs the first time
@@ -24,9 +24,7 @@ public class StopClimber extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.climber.pidActuator(Robot.climber.actuatorPositionLevelZero,
-                              Robot.climber.actuatorPositionLevelZero);
-
+    Robot.elevator.elevatorUpButton();
   }
 
   // Make this return true when this Command no longer needs to run execute()
