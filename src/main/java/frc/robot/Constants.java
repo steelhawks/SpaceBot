@@ -26,7 +26,8 @@ public class Constants {
 
     //JOYSTICK PORTS
     public static final int driveJSPort = 0;
-    public static final int gamepadPort = 1;
+    public static final int buttonBoardPort = 1;
+    public static final int gamepadPort = 2;
     
     //RIGHT DRIVETRAIN MOTOR PORTS - SPARK
     public static final int frontRightMPort = 20;
@@ -72,10 +73,10 @@ public class Constants {
     public static final int elevatorUpB = 2;
     public static final int armPistonB = 3;
     public static final int hatchPistonB = 4;
-    public static final int levelTwoActuatorB = 5;
-    public static final int levelThreeActuatorB = 6;
-    public static final int rearActuatorRetractB = 7;
-    public static final int frontActuatorRetractB = 8;
+    public static final int actuatorLevelTwoB = 5;
+    public static final int actuatorLevelThreeB = 6;
+    public static final int actuatorRetractBackB = 7;
+    public static final int actuatorRetractFrontB = 8;
     public static final int pivotDownB = 9;
     public static final int pivotUpB = 10;
     public static final int armIntakeB = 11;
@@ -85,8 +86,7 @@ public class Constants {
     /*public static final int armPistonB = 2;
     public static final int hatchPistonB = 4;
     public static final int armOuttakeB =  5;
-    public static final int armIntakeB = 6;
-    public static final int dropdownB = 2;*/
+    public static final int armIntakeB = 6;*/
     
     //OPTICAL ENCODER PORTS
     public static final int leftEncPortA = 0;

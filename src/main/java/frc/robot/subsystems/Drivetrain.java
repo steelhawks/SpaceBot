@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -64,6 +65,12 @@ public class Drivetrain extends Subsystem {
     leftEnc.reset();
     rightEnc.reset();
     shiftSol.set(DoubleSolenoid.Value.kForward);
+    frontLeftM.setIdleMode(IdleMode.kCoast);
+    midLeftM.setIdleMode(IdleMode.kCoast);
+    rearLeftM.setIdleMode(IdleMode.kBrake);
+    frontRightM.setIdleMode(IdleMode.kCoast);
+    midRightM.setIdleMode(IdleMode.kCoast);
+    rearRightM.setIdleMode(IdleMode.kBrake);
   }
 
   @Override

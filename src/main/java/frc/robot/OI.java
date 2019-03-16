@@ -15,11 +15,15 @@ import frc.robot.commands.Arms.ArmOuttakeButton;
 import frc.robot.commands.Arms.ArmPistonButton;
 import frc.robot.commands.Arms.ArmStop;
 import frc.robot.commands.Arms.HatchPistonButton;
+import frc.robot.commands.Climber.ActuatorLevelThreeButton;
+import frc.robot.commands.Climber.ActuatorLevelTwoButton;
+import frc.robot.commands.Climber.ActuatorRetractBackButton;
+import frc.robot.commands.Climber.ActuatorRetractFrontButton;
 import frc.robot.commands.Climber.DropdownButton;
 import frc.robot.commands.Climber.DropdownStop;
-import frc.robot.commands.Climber.FrontRetract;
 import frc.robot.commands.Drivetrain.ShiftGearButton;
 import frc.robot.commands.Elevator.ElevatorDownButton;
+import frc.robot.commands.Elevator.ElevatorStop;
 import frc.robot.commands.Elevator.ElevatorUpButton;
 import frc.robot.commands.Pivot.PivotDownButton;
 import frc.robot.commands.Pivot.PivotStop;
@@ -34,6 +38,7 @@ public class OI {
   Constants constants = Constants.getInstance();
 
   public Joystick driveJS = new Joystick(constants.driveJSPort);
+  public Joystick buttonBoard = new Joystick(constants.buttonBoardPort);
   public Gamepad gamepad = new Gamepad(constants.gamepadPort);
 
   public OI(){
@@ -46,39 +51,47 @@ public class OI {
     dropdown.whenInactive(new DropdownStop());
 
     //OPERATOR BUTTON BOARD BUTTONS
-    Button armPiston = new JoystickButton(gamepad, constants.armPistonB);
+    Button armPiston = new JoystickButton(buttonBoard, constants.armPistonB);
     armPiston.whenPressed(new ArmPistonButton());
 
-    Button hatchPiston = new JoystickButton(gamepad, constants.hatchPistonB);
+    Button hatchPiston = new JoystickButton(buttonBoard, constants.hatchPistonB);
     hatchPiston.whenPressed(new HatchPistonButton());
 
-    Button armIntake = new JoystickButton(gamepad, constants.armIntakeB);
+    Button armIntake = new JoystickButton(buttonBoard, constants.armIntakeB);
     armIntake.whenActive(new ArmIntakeButton());
     armIntake.whenInactive(new ArmStop());
 
-    Button armOuttake = new JoystickButton(gamepad, constants.armOuttakeB);
+    Button armOuttake = new JoystickButton(buttonBoard, constants.armOuttakeB);
     armOuttake.whenActive(new ArmOuttakeButton());
     armOuttake.whenInactive(new ArmStop());
 
-    Button pivotUp = new JoystickButton(gamepad, constants.pivotUpB);
+    Button pivotUp = new JoystickButton(buttonBoard, constants.pivotUpB);
     pivotUp.whenActive(new PivotUpButton());
     pivotUp.whenInactive(new PivotStop());
 
-    Button pivotDown = new JoystickButton(gamepad, constants.pivotDownB);
+    Button pivotDown = new JoystickButton(buttonBoard, constants.pivotDownB);
     pivotDown.whenActive(new PivotDownButton());
     pivotDown.whenInactive(new PivotStop());
 
-    Button elevatorUp = new JoystickButton(gamepad, constants.elevatorUpB);
-    elevatorUp.whenPressed(new ElevatorUpButton());
+    Button elevatorUp = new JoystickButton(buttonBoard, constants.elevatorUpB);
+    elevatorUp.whenActive(new ElevatorUpButton());
+    elevatorUp.whenInactive(new ElevatorStop());
 
-    Button elevatorDown = new JoystickButton(gamepad, constants.elevatorDownB);
-    elevatorDown.whenPressed(new ElevatorDownButton());
+    Button elevatorDown = new JoystickButton(buttonBoard, constants.elevatorDownB);
+    elevatorDown.whenActive(new ElevatorDownButton());
+    elevatorDown.whenInactive(new ElevatorStop());
 
-    /*Button frontActuatorRetract = new JoystickButton(gamepad, constants.frontActuatorRetractB);
-    frontActuatorRetract.whenPressed(new FrontRetract());
+    Button actuatorRetractFront = new JoystickButton(buttonBoard, constants.actuatorRetractFrontB);
+    actuatorRetractFront.whenPressed(new ActuatorRetractFrontButton());
     
-    Button rearActuatorRetract = new JoystickButton(gamepad, constants.rearActuatorRetractB);
-    rearRetractButton.whenPressed(new StopClimber());
-    */
+    Button actuatorRetractBack = new JoystickButton(buttonBoard, constants.actuatorRetractBackB);
+    actuatorRetractBack.whenPressed(new ActuatorRetractBackButton());
+
+    Button actuatorLevelTwo = new JoystickButton(buttonBoard, constants.actuatorLevelTwoB);
+    actuatorLevelTwo.whenPressed(new ActuatorLevelTwoButton());
+
+    Button actuatorLevelThree = new JoystickButton(buttonBoard, constants.actuatorLevelThreeB);
+    actuatorLevelThree.whenPressed(new ActuatorLevelThreeButton());
+    
   }
 }

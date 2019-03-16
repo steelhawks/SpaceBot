@@ -12,6 +12,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Gamepad;
 import frc.robot.commands.Elevator.ElevatorGamepad;
@@ -32,7 +33,7 @@ public class Elevator extends Subsystem {
 
   //ELEVATOR CONSTRUCTOR
   public Elevator() {
-
+  
   }
   @Override
   public void initDefaultCommand() {
@@ -74,7 +75,7 @@ public class Elevator extends Subsystem {
       elevatorM.set(0);
       elevatorM.getSensorCollection().setQuadraturePosition(0, 0);
     } else {
-      elevatorM.set(0.9);
+      elevatorM.set(-0.9);
     }
   }
 

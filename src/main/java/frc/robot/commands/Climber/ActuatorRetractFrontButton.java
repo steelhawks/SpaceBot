@@ -11,8 +11,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.subsystems.Climber.ActuatorPosition;
 
-public class FrontRetract extends Command {
-  public FrontRetract() {
+public class ActuatorRetractFrontButton extends Command {
+  public ActuatorRetractFrontButton() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.climber);
   }
@@ -25,13 +25,11 @@ public class FrontRetract extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    System.out.print("FrontRetract.execute()");
-
     // Fully retract front actuators
     // Rear stays the same
 
-    Robot.climber.pidActuator(Robot.climber.actuatorPositionLevelThree,
-                              Robot.climber.actuatorPositionLevelThree);
+    Robot.climber.actuatorPIDButton(Robot.climber.actuatorPositionLevelZero,
+                                    Robot.climber.actuatorPositionNothing);
   }
   
 

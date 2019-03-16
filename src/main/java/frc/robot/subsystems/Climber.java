@@ -16,13 +16,9 @@ import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
-import frc.robot.Gamepad;
-import frc.robot.commands.Climber.FrontClimberGamepad;
-
 
 public class Climber extends Subsystem {
 
@@ -63,15 +59,12 @@ public class Climber extends Subsystem {
 
   //PID CONSTANTS
   public double kP = 0.1;
-  public double kI = 1e-4;
+  public double kI = 0.0002;
   public double kD = 1;
   public double kIz = 0;
   public double kFF = 0;
-  public double kMaxOutput = 1;
-  public double kMinOutput = -1;
-
-  //CURRENT REFERENCE FOR PID
-  private int MA_CURRENT_REFERENCE = 0;
+  public double kMaxOutput = 0.25;
+  public double kMinOutput = -0.25;
 
   //CONSTANTS FOR CONTROLLING THE ACTUATORS
   public int actuatorPositionLevelZero = 0;
@@ -108,6 +101,7 @@ public class Climber extends Subsystem {
     actuatorPID.setFF(kFF);
     actuatorPID.setOutputRange(kMinOutput, kMaxOutput);
 
+
     actuatorPIDB.setP(kP);
     actuatorPIDB.setI(kI);
     actuatorPIDB.setD(kD);
@@ -139,7 +133,7 @@ public class Climber extends Subsystem {
   }
 
   //ACTUATOR PID COMMAND
-  public void pidActuator(int front, int back) {   
+  public void actuatorPIDButton(int front, int back) {   
   //SET MOTOR CONTROLLERS TO BRAKE 
     actuatorMA.setIdleMode(IdleMode.kBrake);
     actuatorMB.setIdleMode(IdleMode.kBrake);
@@ -149,80 +143,31 @@ public class Climber extends Subsystem {
   // FRONT ACTUATORS
     if( front == actuatorPositionLevelZero){
         System.out.println("Reset Front");
-        CANError error = actuatorPID.setReference(0, ControlType.kPosition);
-        this.MA_CURRENT_REFERENCE = 0;
+        CANError error = actuatorPID.setReference(5, ControlType.kPosition);
     }
     else if( front == actuatorPositionLevelTwo){
         System.out.println("Level Two Front");
         CANError error = actuatorPID.setReference(20, ControlType.kPosition);
-        this.MA_CURRENT_REFERENCE = 20;
     }
     else if( front == actuatorPositionLevelThree){
       System.out.println("Level Three Front");
-      CANError error = actuatorPID.setReference(40, ControlType.kPosition);
-        this.MA_CURRENT_REFERENCE = 40;
+      CANError error = actuatorPID.setReference(45, ControlType.kPosition);
     }
 
  // BACK ACTUATORS
     if( back == actuatorPositionLevelZero ){
         System.out.println("Reset Back"); 
-        CANError errorC = actuatorPIDC.setReference(0, ControlType.kPosition);
-        this.MA_CURRENT_REFERENCE = 0;
+        CANError errorC = actuatorPIDC.setReference(5, ControlType.kPosition);
     }
     else if( back == actuatorPositionLevelTwo){
         System.out.println("Level Two Back");
         CANError errorC = actuatorPIDC.setReference(20, ControlType.kPosition);      
-        this.MA_CURRENT_REFERENCE = 20;
     }
     else if( back == actuatorPositionLevelThree){
         System.out.println("Level Three Back");
-        CANError errorC = actuatorPIDC.setReference(40, ControlType.kPosition);
-        this.MA_CURRENT_REFERENCE = 40;
+        CANError errorC = actuatorPIDC.setReference(45, ControlType.kPosition);
       }
     }
-
-  //COMBINED ACTUATORS JOYSTICK
-  public void actuatorsJoystick(Joystick stick) {
-    double y = 0;
-    if (getNeoPosA() >= 98 && getNeoPosC() >= 108) {
-      if(stick.getY() > 0) {
-        y = 0;
-      } else {
-        y = stick.getY();
-      }
-    } else if(getNeoPosA() <= 7 && getNeoPosC() <= 4) {
-      if(stick.getY() < 0) {
-        y = 0;
-      } else {
-        y = stick.getY();
-      }
-    } else {
-      y = stick.getY();
-    }
-    //allActuators.set(y);
-  }
-
-  //FRONT ACTUATORS GAMEPAD
-  public void frontGamepad(Gamepad F310) {
-    double y = 0;
-
-    if (getNeoPosA() >= 160) {
-      if(F310.getLeftY() > 0) {
-        y = 0;
-      } else {
-        y = F310.getLeftY();
-      }
-    } else if(getNeoPosA() <= 7) {
-      if(F310.getLeftY() < 0) {
-        y = 0;
-      } else {
-        y = F310.getLeftY();
-      }
-    } else {
-      y = F310.getLeftY();
-    }
-      //frontActuators.set(y);
-  }
 
   //ACTIVATE DROPDOWN MOTOR
   public void dropdownButton() {
@@ -235,7 +180,7 @@ public class Climber extends Subsystem {
   }
 
   //STOP CLIMBER MOTORS
-  public void climberStop() {
+  public void actuatorStop() {
     allActuators.set(0);
   }
 

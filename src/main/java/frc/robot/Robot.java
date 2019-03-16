@@ -64,6 +64,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+        SmartDashboard.putBoolean("Top Limit Value", Robot.elevator.topLimit.get());
+        SmartDashboard.putBoolean("Bottom Limit Value", Robot.elevator.bottomLimit.get());
+        SmartDashboard.putBoolean("Pivot Limit Value", Robot.pivot.pivotLimit.get());
         //OUTPUTTING LEFT SIDE DRIVETRAIN ENCODER VALUES
         SmartDashboard.putNumber("Left Enc Rate", Robot.drivetrain.getLeftEncRate());
         SmartDashboard.putNumber("Left Enc Distance", Robot.drivetrain.getLeftEncDist());

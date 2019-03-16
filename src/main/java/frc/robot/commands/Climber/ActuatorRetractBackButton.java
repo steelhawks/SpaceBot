@@ -10,10 +10,10 @@ package frc.robot.commands.Climber;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class RearClimberGamepad extends Command {
-  public RearClimberGamepad() {
+public class ActuatorRetractBackButton extends Command {
+  public ActuatorRetractBackButton() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.arms);
+    requires(Robot.climber);
   }
 
   // Called just before this Command runs the first time
@@ -24,6 +24,12 @@ public class RearClimberGamepad extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    // Fully retract back actuators
+    // Front stays the same
+
+    Robot.climber.actuatorPIDButton(Robot.climber.actuatorPositionNothing,
+                                    Robot.climber.actuatorPositionLevelZero);
+  
   }
 
   // Make this return true when this Command no longer needs to run execute()

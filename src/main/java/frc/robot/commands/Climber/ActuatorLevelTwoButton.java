@@ -10,8 +10,8 @@ package frc.robot.commands.Climber;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class ClimberStop extends Command {
-  public ClimberStop() {
+public class ActuatorLevelTwoButton extends Command {
+  public ActuatorLevelTwoButton() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.climber);
   }
@@ -23,10 +23,14 @@ public class ClimberStop extends Command {
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() {
-    Robot.climber.pidActuator(Robot.climber.actuatorPositionLevelZero,
-                              Robot.climber.actuatorPositionLevelZero);
+  protected void execute() {  
+    // Fully retract back actuators
+    // Front stays the same
 
+    Robot.climber.actuatorPIDButton(Robot.climber.actuatorPositionLevelTwo,
+                                    Robot.climber.actuatorPositionLevelTwo);
+  
+  
   }
 
   // Make this return true when this Command no longer needs to run execute()
