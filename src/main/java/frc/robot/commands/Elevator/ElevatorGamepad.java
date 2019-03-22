@@ -28,7 +28,7 @@ public class ElevatorGamepad extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.elevator.elevatorGamepad(Robot.oi.gamepad);
+    //Robot.elevator.elevatorGamepad(Robot.oi.gamepad);
   }
 
   // Make this return true when this Command no longer needs to run execute()

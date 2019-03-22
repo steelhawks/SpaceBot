@@ -27,7 +27,7 @@ public class Constants {
     //JOYSTICK PORTS
     public static final int driveJSPort = 0;
     public static final int buttonBoardPort = 1;
-    public static final int gamepadPort = 2;
+    //public static final int gamepadPort = 2;
     
     //RIGHT DRIVETRAIN MOTOR PORTS - SPARK
     public static final int frontRightMPort = 20;

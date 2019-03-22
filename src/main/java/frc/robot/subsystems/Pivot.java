@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Constants;
 import frc.robot.Gamepad;
@@ -40,22 +41,22 @@ public class Pivot extends Subsystem {
   }
 
   //PIVOTING GAMEPAD
-  public void pivotGamepad(Gamepad F310) {
+  public void pivotGamepad(Joystick stick) {
     double y = 0;
     if(pivotLimit.get() == false) {
-        if(F310.getRightY() < 0) {
+        if(stick.getRawAxis(4) < 0) {
           y = 0;
         } else {
-          y = F310.getRightY();
+          y = stick.getRawAxis(4);
         }
       } else if (pivotEncPos < -950) {
-        if(F310.getRightY() > 0) {
+        if(stick.getRawAxis(4) > 0) {
           y = 0;
         } else {
-          y = F310.getRightY();
+          y = stick.getRawAxis(4);
         }
       } else {
-        y = F310.getRightY();
+        y = stick.getRawAxis(4);
         if(y < 0){
         y = 0.7*y;
       } else if (y > 0) {
@@ -77,7 +78,7 @@ public void pivotUpButton() {
     pivotM.set(0);
     pivotM.getSensorCollection().setQuadraturePosition(0, 0);
   } else {
-    pivotM.set(0.5);
+    pivotM.set(-0.4);
   }
 }
 
@@ -86,7 +87,7 @@ public void pivotDownButton() {
   if (pivotEncPos < -950) {
     pivotM.set(0);
   } else{
-    pivotM.set(-0.5);
+    pivotM.set(0.2);
   }
 }
 

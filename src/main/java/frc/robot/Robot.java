@@ -96,10 +96,47 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Pivot Encoder Position", Robot.pivot.pivotEncPos);
         //OUTPUTTING NEO VALUES FOR CLIMBER
         SmartDashboard.putNumber("Climb Enc A Pos", Robot.climber.actuatorNeoEncA.getPosition());
+        SmartDashboard.putNumber("Climb Enc B Pos", Robot.climber.actuatorNeoEncB.getPosition());
         SmartDashboard.putNumber("Climb Enc C Pos", Robot.climber.actuatorNeoEncC.getPosition());
+        SmartDashboard.putNumber("Climb Enc D Pos", Robot.climber.actuatorNeoEncD.getPosition());
         SmartDashboard.putNumber("Climb Motor A Output", Robot.climber.actuatorMA.getAppliedOutput());
         SmartDashboard.putNumber("Climb Motor C Output", Robot.climber.actuatorMC.getAppliedOutput());
-  }
+  
+    
+
+
+
+        if ( Robot.climber.actuator_state == "RETRACTED" && Robot.climber.actuatorNeoEncA.getPosition() > 101.0 ){
+          Robot.climber.actuatorMA.set(0);
+          Robot.climber.actuatorMB.set(0);
+          Robot.climber.actuator_state = "EXTENDED";
+          System.out.println("Actuators Stopped");
+        }
+
+        if ( Robot.climber.actuator_state == "EXTENDED" && Robot.climber.actuatorNeoEncA.getPosition() < 5 ){
+          Robot.climber.actuatorMA.set(0);
+          Robot.climber.actuatorMB.set(0);
+          Robot.climber.actuator_state = "RETRACTED";
+          System.out.println("Actuators Stopped");
+        }
+
+
+
+        if ( Robot.climber.actuator_back_state == "RETRACTED" && Robot.climber.actuatorNeoEncC.getPosition() > 104.0 ){
+          Robot.climber.actuatorMC.set(0);
+          Robot.climber.actuatorMD.set(0);
+          Robot.climber.actuator_back_state = "EXTENDED";
+          System.out.println("Back Actuators Stopped");
+        }
+
+        if ( Robot.climber.actuator_back_state == "EXTENDED" && Robot.climber.actuatorNeoEncC.getPosition() < 5 ){
+          Robot.climber.actuatorMC.set(0);
+          Robot.climber.actuatorMD.set(0);
+          Robot.climber.actuator_back_state = "RETRACTED";
+          System.out.println("Back Actuators Stopped");
+        }
+
+      }
 
   /**
    * This function is called once each time the robot enters Disabled mode.

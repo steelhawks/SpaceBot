@@ -39,7 +39,7 @@ public class OI {
 
   public Joystick driveJS = new Joystick(constants.driveJSPort);
   public Joystick buttonBoard = new Joystick(constants.buttonBoardPort);
-  public Gamepad gamepad = new Gamepad(constants.gamepadPort);
+  //public Gamepad gamepad = new Gamepad(constants.gamepadPort);
 
   public OI(){
     //DRIVER JOYSTICK BUTTONS
