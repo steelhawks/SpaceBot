@@ -50,6 +50,7 @@ public class Drivetrain extends Subsystem {
 
   //NAVX MXP GYRO
   public static AHRS gyro = new AHRS(SPI.Port.kMXP);
+  public static double kPGyro = 0.08;
 
   //NEO MOTOR ENCODERS
   public CANEncoder leftNeoEnc = frontLeftM.getEncoder();
@@ -94,6 +95,18 @@ public class Drivetrain extends Subsystem {
     }
   }
 
+  //MOVING STRAIGHT USING THE GYRO METHOD
+  public void gyroMoveStraight(double speed)
+  {
+      diffDrive.arcadeDrive((speed), gyro.getAngle() * kPGyro);
+  }
+
+  //MOVING STRAIGHT USING GYRO AND ANGLE VALUE METHOD
+  public void gyroMoveStraight(double speed, double angle)
+  {
+      diffDrive.arcadeDrive((speed), angle * kPGyro);
+  }
+
   public double getLeftEncRate() {
     return leftEnc.getRate();
   }
@@ -121,5 +134,15 @@ public class Drivetrain extends Subsystem {
   public static void resetGyro() {
     gyro.reset();
     gyro.zeroYaw();
+  }
+
+  public DoubleSolenoid.Value getDoubleSolenoidValueKForward()
+  {
+      return DoubleSolenoid.Value.kForward;
+  }
+
+  public DoubleSolenoid.Value getDoubleSolenoidValueKReverse()
+  {
+      return DoubleSolenoid.Value.kReverse;
   }
 }

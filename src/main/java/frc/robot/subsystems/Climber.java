@@ -71,6 +71,8 @@ public class Climber extends Subsystem {
   public String actuator_state = "RETRACTED";
   public String actuator_back_state = "RETRACTED";
 
+  public int target_position = 0;
+
   //CONSTANTS FOR CONTROLLING THE ACTUATORS
   public int actuatorPositionLevelZero = 0;
   public int actuatorPositionLevelThree = 3;
@@ -129,10 +131,10 @@ public class Climber extends Subsystem {
     actuatorPIDD.setIZone(kIz);
     actuatorPIDD.setFF(kFF);
     actuatorPIDD.setOutputRange(kMinOutput, kMaxOutput);
-    
-    //SET FOLLOW MODE
+
     actuatorMB.follow(actuatorMA);
     actuatorMD.follow(actuatorMC);
+  
   }
 
   @Override
@@ -142,15 +144,45 @@ public class Climber extends Subsystem {
   //ACTUATOR PID COMMAND
   public void actuatorPIDButton(int front, int back) {   
 
-
-
-
-
     //SET MOTOR CONTROLLERS TO BRAKE 
     actuatorMA.setIdleMode(IdleMode.kBrake);
     actuatorMB.setIdleMode(IdleMode.kBrake);
     actuatorMC.setIdleMode(IdleMode.kBrake);
     actuatorMD.setIdleMode(IdleMode.kBrake);
+
+
+    // set the back/front state just in case the Robot.java does not set it for us
+    if( back == actuatorPositionLevelZero ){
+      actuator_back_state = "EXTENDED";
+      target_position = 5;
+    }
+
+    if( front == actuatorPositionLevelZero ){
+      actuator_state = "EXTENDED";
+      target_position = 5;
+    }
+
+    if( back == actuatorPositionLevelThree ){
+      actuator_back_state = "RETRACTED";
+      target_position = 103;
+    }
+
+    if( front == actuatorPositionLevelThree ){
+      actuator_state = "RETRACTED";
+      target_position = 103;
+    }
+
+    if( back == actuatorPositionLevelTwo ){
+      actuator_back_state = "RETRACTED";
+      target_position = 40;
+    }
+
+    if( front == actuatorPositionLevelTwo ){
+      actuator_state = "RETRACTED";
+      target_position = 40;
+    }
+
+
 
     int cutoff = 0;
 

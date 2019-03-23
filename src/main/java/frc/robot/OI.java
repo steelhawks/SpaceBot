@@ -28,6 +28,7 @@ import frc.robot.commands.Elevator.ElevatorUpButton;
 import frc.robot.commands.Pivot.PivotDownButton;
 import frc.robot.commands.Pivot.PivotStop;
 import frc.robot.commands.Pivot.PivotUpButton;
+import frc.robot.commands.Vision.AlignTape;
 
 /** 
  * This class is the glue that binds the controls on the physical operator
@@ -49,6 +50,10 @@ public class OI {
     Button dropdown = new JoystickButton(driveJS, constants.dropdownB);
     dropdown.whenActive(new DropdownButton());
     dropdown.whenInactive(new DropdownStop());
+
+    //DRIVER VISION ALIGN BUTTON
+    Button alignTape = new JoystickButton(driveJS, constants.alignTape);
+    alignTape.whenPressed(new AlignTape());
 
     //OPERATOR BUTTON BOARD BUTTONS
     Button armPiston = new JoystickButton(buttonBoard, constants.armPistonB);

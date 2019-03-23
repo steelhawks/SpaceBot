@@ -67,7 +67,8 @@ public class Constants {
     //DRIVER JOYSTICK BUTTONS
     public static final int shiftB = 1;
     public static final int dropdownB = 11;
-
+    public static final int alignTape = 3;
+    
     //BUTTON BOARD BUTTONS
     public static final int elevatorDownB = 1;
     public static final int elevatorUpB = 2;

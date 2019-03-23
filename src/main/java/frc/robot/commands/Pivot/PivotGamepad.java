@@ -28,7 +28,7 @@ public class PivotGamepad extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.pivot.pivotGamepad(Robot.oi.buttonBoard);
+    //Robot.pivot.pivotGamepad(Robot.oi.buttonBoard);
   }
 
   // Make this return true when this Command no longer needs to run execute()

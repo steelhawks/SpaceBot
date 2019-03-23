@@ -102,18 +102,14 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Climb Motor A Output", Robot.climber.actuatorMA.getAppliedOutput());
         SmartDashboard.putNumber("Climb Motor C Output", Robot.climber.actuatorMC.getAppliedOutput());
   
-    
-
-
-
-        if ( Robot.climber.actuator_state == "RETRACTED" && Robot.climber.actuatorNeoEncA.getPosition() > 101.0 ){
+        if ( Robot.climber.actuator_state == "RETRACTED" && Robot.climber.actuatorNeoEncA.getPosition() > Robot.climber.target_position ){
           Robot.climber.actuatorMA.set(0);
           Robot.climber.actuatorMB.set(0);
           Robot.climber.actuator_state = "EXTENDED";
           System.out.println("Actuators Stopped");
         }
 
-        if ( Robot.climber.actuator_state == "EXTENDED" && Robot.climber.actuatorNeoEncA.getPosition() < 5 ){
+        if ( Robot.climber.actuator_state == "EXTENDED" && Robot.climber.actuatorNeoEncA.getPosition() < Robot.climber.target_position ){
           Robot.climber.actuatorMA.set(0);
           Robot.climber.actuatorMB.set(0);
           Robot.climber.actuator_state = "RETRACTED";

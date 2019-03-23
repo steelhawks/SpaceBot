@@ -66,7 +66,7 @@ public class Elevator extends Subsystem {
     if(topLimit.get() == false) {
       elevatorM.set(0); 
     } else {
-      elevatorM.set(0.9);
+      elevatorM.set(1.0);
     }
   }
   //ELEVATOR DOWN BUTTON BOARD
@@ -75,7 +75,7 @@ public class Elevator extends Subsystem {
       elevatorM.set(0);
       elevatorM.getSensorCollection().setQuadraturePosition(0, 0);
     } else {
-      elevatorM.set(-0.9);
+      elevatorM.set(-1.0);
     }
   }
 
