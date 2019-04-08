@@ -16,7 +16,45 @@ public class Tape
     private double xPosLeftLimit;
     private double xPosRightLimit;
 
-    //private final OI oi = new OI();
+    //Aligns the robot
+    public void align()
+    {
+        if (Robot.oi.driveJS.getRawButtonPressed(2))
+        {
+            end();
+        }
+        else if (!initAlign)
+        {
+            System.out.println("Aligning!");
+            if (Math.abs(Robot.drivetrain.gyro.getAngle()) < (getAngle() - 0.1) && getXPos() < getXPosLeftLimit())
+            {
+                Robot.drivetrain.rotate(0.325);
+            }
+            else if(Math.abs(Robot.drivetrain.gyro.getAngle()) < (getAngle() - 0.1) && getXPos() > getXPosRightLimit()) 
+            {
+			    Robot.drivetrain.rotate(-0.325);
+            }
+            else {
+			    Robot.drivetrain.resetGyro();
+                Robot.drivetrain.stop();
+                System.out.println("Aligned!");
+                initAlign = true;
+            }
+        }
+        else
+        {
+            if (!Robot.ultra.isClose())
+            {
+                Robot.drivetrain.gyroMoveStraight(Robot.drivetrain.decimalSpeed(Robot.ultra.getRange()));
+            }
+            else
+            {
+                Robot.drivetrain.stop();
+                System.out.println("Distanced!");
+                alignAngle = true;
+            }
+        } 
+    }
 
     //Returns the x coordinate value of the center of the hatch
     public double getXPos()
@@ -101,89 +139,17 @@ public class Tape
 
     public void end()
     {
+        Robot.drivetrain.leftGroup.set(0);
+        Robot.drivetrain.rightGroup.set(0);
+        System.out.println("Quit...");
         this.alignAngle = true;
     }
 
     //Sets the gyro back to default zero values
-    public void resetGyro()
+    public void reset()
     {
-        Robot.drivetrain.gyro.reset();
-        Robot.drivetrain.gyro.zeroYaw();
         alignAngle = false;
         initAlign = false;
-    }
-
-    //Aligns the robot ********THESE VALUES NEED TO BE ADJUSTED************
-    public void align()
-    {
-
-        if (Robot.oi.driveJS.getRawButtonPressed(2) || Robot.oi.driveJS.getRawButtonPressed(4) || Robot.oi.driveJS.getRawButtonPressed(5))
-        {
-            end();
-        }
-        else if (!initAlign)
-        {
-            getNTAngle();
-            getXPos();
-            getYPos();
-            getDistance();
-            System.out.println("Aligning!");
-            if (Math.abs(Robot.drivetrain.gyro.getAngle()) < (getAngle() - 0.1) && getXPos() < getXPosLeftLimit())
-            {
-                Robot.drivetrain.leftGroup.set(0.225);
-                Robot.drivetrain.rightGroup.set(0.225);
-            }
-            else if(Math.abs(Robot.drivetrain.gyro.getAngle()) < (getAngle() - 0.1) && getXPos() > getXPosRightLimit()) 
-            {
-			    Robot.drivetrain.leftGroup.set(-0.225);
-                Robot.drivetrain.rightGroup.set(-0.225);
-            }
-            else {
-                resetGyro();
-			    Robot.drivetrain.leftGroup.set(0);
-                Robot.drivetrain.rightGroup.set(0);
-                System.out.println("Aligned!");
-                initAlign = true;
-            }
-        }
-        else
-        {   
-            /*if (!Ultra.isCloseShift()) //enter highgear distancing (more than 70n inches away)
-            {
-                 //****** kReverse for low gear AND FORWARD FOR HIGH GEAR!! MAKE SURE ITS SAME ON OMEGA CODE ******
-      //********BC OUR VISION CODE DEPENDS ON THIS *********
-                if (Robot.drivetrain.shiftSol.get() == Robot.drivetrain.getDoubleSolenoidValueKReverse())
-                {
-                    Robot.drivetrain.shiftGearButton();
-                }
-                //*******lower the value u divide by to make it faster (rn its 75)****
-                System.out.println("Distancing high gear!");
-                System.out.println((int)(((getDistance() + 5) / 75) * 100) / 100.0);
-                Robot.drivetrain.gyroMoveStraight((int)(((getDistance() + 5) / 75) * 100) / 100.0);
-            }
-            else if (!Ultra.isClose()) //enter low gear distancing (less than 70 inches away to 30)
-            {
-                if (Robot.drivetrain.shiftSol.get() == Robot.drivetrain.getDoubleSolenoidValueKForward())
-                {
-                    Robot.drivetrain.shiftGearButton();
-                }
-                System.out.println("Distancing low gear!");
-                System.out.println((int)(((getDistance() + 0) / 75) * 100) / 100.0);
-                Robot.drivetrain.gyroMoveStraight((int)(((getDistance() + 0) / 75) * 100) / 100.0);
-            }*/
-            if (!Ultra.isClose())
-            {
-                System.out.println((int)(((getDistance() + 0) / 90) * 100) / 100.0);
-                Robot.drivetrain.gyroMoveStraight((int)(((getDistance() + 0) / 90) * 100) / 100.0);
-            }
-            else
-            {
-                Robot.drivetrain.leftGroup.set(0);
-                Robot.drivetrain.rightGroup.set(0);
-                System.out.println("Distanced!");
-                alignAngle = true;
-            }
-        } 
     }
 
     public void test()

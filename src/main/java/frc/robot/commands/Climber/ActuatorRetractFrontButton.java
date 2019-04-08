@@ -9,7 +9,6 @@ package frc.robot.commands.Climber;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.subsystems.Climber.ActuatorPosition;
 
 public class ActuatorRetractFrontButton extends Command {
   public ActuatorRetractFrontButton() {

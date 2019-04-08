@@ -7,6 +7,8 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -27,10 +29,17 @@ public class Pivot extends Subsystem {
   public DigitalInput pivotLimit = new DigitalInput(constants.pivotLimitPort);
   
   //POSTION OF ENCODER
-  public double pivotEncPos = pivotM.getSensorCollection().getQuadraturePosition();
+  //public double pivotEncPos = pivotM.getSensorCollection().getQuadraturePosition();
+  
+  //PID LOOP CONSTANTS
+  public static final int kSlotIdx = 0;
+  public static final int kPIDLoopIdx = 0;
+  public static final int kTimeoutMs = 20;
   
   //ARM PIVOT CONSTRUCTOR
   public Pivot() {
+    // pivotM.configFactoryDefault();
+    // pivotM.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, kPIDLoopIdx, kTimeoutMs);
     pivotM.getSensorCollection().setQuadraturePosition(0,0);
   }
 
@@ -40,31 +49,39 @@ public class Pivot extends Subsystem {
     setDefaultCommand(new PivotGamepad());
   }
 
+  //PIVOT PID
+  // public void pidPivot() {
+  //   double targetPos = 0;
+  //   pivotM.set(ControlMode.MotionMagic, targetPos);
+  // }
   //PIVOTING GAMEPAD
-  public void pivotGamepad(Joystick stick) {
+  public void pivotGamepad(Gamepad F310) {
+    double pivotEncPos = pivotM.getSensorCollection().getQuadraturePosition();
     double y = 0;
     if(pivotLimit.get() == false) {
-        if(stick.getRawAxis(4) < 0) {
+        if(F310.getRightY() > 0) {
           y = 0;
         } else {
-          y = stick.getRawAxis(4);
+          y = F310.getRightY();
         }
-      } else if (pivotEncPos < -950) {
-        if(stick.getRawAxis(4) > 0) {
+    } else if (pivotEncPos < -950) {
+        if(F310.getRightY() < 0) {
           y = 0;
         } else {
-          y = stick.getRawAxis(4);
+          y = F310.getRightY();
         }
-      } else {
-        y = stick.getRawAxis(4);
-        if(y < 0){
-        y = 0.7*y;
-      } else if (y > 0) {
-        y = 0.4*y;
-      } else {
-         y = 0;
-        }
-      pivotM.set(y);
+    } else {
+        y = F310.getRightY();
+        
+    if(y < 0){
+        y = 0.5*y;
+    } else if (y > 0) {
+        y = 0.5*y;
+    } else {
+        y = 0;
+    }
+
+    pivotM.set(y);
 
   if(pivotLimit.get() == false) {
     pivotM.getSensorCollection().setQuadraturePosition(0, 0);
@@ -84,6 +101,7 @@ public void pivotUpButton() {
 
 //PIVOT DOWN BUTTON BOARD
 public void pivotDownButton() {
+  double pivotEncPos = pivotM.getSensorCollection().getQuadraturePosition();
   if (pivotEncPos < -950) {
     pivotM.set(0);
   } else{
@@ -98,6 +116,7 @@ public void pivotStop() {
 
 //PIVOTING AUTONOMOUSLY
 public void pivotAuton(double pos, boolean dir) {
+  double pivotEncPos = pivotM.getSensorCollection().getQuadraturePosition();
   if (dir == true) {
     pivotM.set(-0.5);
       if (pivotEncPos > pos) {

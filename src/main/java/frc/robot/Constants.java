@@ -27,7 +27,7 @@ public class Constants {
     //JOYSTICK PORTS
     public static final int driveJSPort = 0;
     public static final int buttonBoardPort = 1;
-    //public static final int gamepadPort = 2;
+    public static final int gamepadPort = 2;
     
     //RIGHT DRIVETRAIN MOTOR PORTS - SPARK
     public static final int frontRightMPort = 20;
@@ -59,8 +59,8 @@ public class Constants {
     public static final int shiftSolPortOff = 1;
 
     //ARM SOLENOID PORTS
-    public static final int armSolPortOn = 2;
-    public static final int armSolPortOff = 3;
+    public static final int lockSolPortOn = 2;
+    public static final int lockSolPortOff = 3;
     public static final int hatchSolPortOn = 4;
     public static final int hatchSolPortOff = 5;
 
@@ -70,24 +70,25 @@ public class Constants {
     public static final int alignTape = 3;
     
     //BUTTON BOARD BUTTONS
-    public static final int elevatorDownB = 1;
-    public static final int elevatorUpB = 2;
-    public static final int armPistonB = 3;
-    public static final int hatchPistonB = 4;
     public static final int actuatorLevelTwoB = 5;
     public static final int actuatorLevelThreeB = 6;
     public static final int actuatorRetractBackB = 7;
     public static final int actuatorRetractFrontB = 8;
-    public static final int pivotDownB = 9;
-    public static final int pivotUpB = 10;
-    public static final int armIntakeB = 11;
-    public static final int armOuttakeB = 12;
-    
+    // public static final int pivotDownB = 9;
+    // public static final int pivotUpB = 10;
+    // public static final int armIntakeB = 11;
+    // public static final int armOuttakeB = 12;
+    // public static final int elevatorDownB = 1;
+    // public static final int elevatorUpB = 2;
+  
+
     //OPERATOR GAMEPAD BUTTONS
-    /*public static final int armPistonB = 2;
-    public static final int hatchPistonB = 4;
+    public static final int pivotDownB = 1;
+    public static final int pivotUpB = 2;
+    public static final int lockPistonB = 4;
+    public static final int hatchPistonB = 3;
     public static final int armOuttakeB =  5;
-    public static final int armIntakeB = 6;*/
+    public static final int armIntakeB = 6;
     
     //OPTICAL ENCODER PORTS
     public static final int leftEncPortA = 0;

@@ -4,8 +4,7 @@ import edu.wpi.first.wpilibj.Ultrasonic;
 
 public class Ultra
 {
-    private static Ultrasonic ultra = new Ultrasonic(5, 6);
-
+    private static Ultrasonic ultra = new Ultrasonic(8, 9);
     public static void enable()
     {
         ultra.setEnabled(true);
@@ -39,7 +38,7 @@ public class Ultra
 
     public static boolean isClose()
     {
-        if(ultra.getRangeInches() <= 45)
+        if(ultra.getRangeInches() <= 40)
         {
             return true;
         }

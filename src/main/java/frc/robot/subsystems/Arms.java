@@ -23,16 +23,13 @@ public class Arms extends Subsystem {
   public WPI_TalonSRX rightArmM = new WPI_TalonSRX(constants.rightArmMPort);
 
   //ARM SOLENOIDS
-  public DoubleSolenoid armSol = new DoubleSolenoid(constants.armSolPortOn, constants.armSolPortOff);
+  public DoubleSolenoid lockSol = new DoubleSolenoid(constants.lockSolPortOn, constants.lockSolPortOff);
   public DoubleSolenoid hatchSol = new DoubleSolenoid(constants.hatchSolPortOn, constants.hatchSolPortOff);
-
-  //IR SENSOR (IF WE USE IT)
-  public AnalogInput cargoIR = new AnalogInput(constants.cargoIRPort);
 
   //ARMS CONSTRUCTOR
   public Arms() {
-    armSol.set(DoubleSolenoid.Value.kForward);
     hatchSol.set(DoubleSolenoid.Value.kReverse);
+    lockSol.set(DoubleSolenoid.Value.kReverse);
   }
 
   //DEFAULT COMMAND
@@ -42,39 +39,25 @@ public class Arms extends Subsystem {
 
   //INTAKING METHOD
   public void armIntakeButton() {
-    if(leftArmM.get() == 0 && rightArmM.get() == 0) {
-      leftArmM.set(-0.8);
+    if(rightArmM.get() == 0) {
       rightArmM.set(0.8);
     } else {
-      leftArmM.set(0);
       rightArmM.set(0);
     }
   }
 
   //SHOOTING METHOD
   public void armOuttakeButton() {
-    if(leftArmM.get() == 0 && rightArmM.get() == 0) {
-      leftArmM.set(0.8);
+    if(rightArmM.get() == 0) {
       rightArmM.set(-0.8);
     } else {
-      leftArmM.set(0);
       rightArmM.set(0);
     }
   }
 
   //STOPPING METHOD
   public void armStopMotors() {
-    leftArmM.set(0);
     rightArmM.set(0);
-  }
-
-  //ARM PISTON METHOD
-  public void armPistons() {
-    if(armSol.get() == DoubleSolenoid.Value.kForward) {
-      armSol.set(DoubleSolenoid.Value.kReverse);
-    } else {
-      armSol.set(DoubleSolenoid.Value.kForward);
-    }
   }
 
   //HATCH PISTON METHOD
@@ -83,6 +66,15 @@ public class Arms extends Subsystem {
       hatchSol.set(DoubleSolenoid.Value.kReverse);
     } else {
       hatchSol.set(DoubleSolenoid.Value.kForward);
+    }
+  }
+
+  //LOCK PISTON METHOD
+  public void lockPiston() {
+    if(lockSol.get() == DoubleSolenoid.Value.kForward) {
+      lockSol.set(DoubleSolenoid.Value.kReverse);
+    } else {
+      lockSol.set(DoubleSolenoid.Value.kForward);
     }
   }
 }

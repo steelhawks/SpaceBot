@@ -10,9 +10,9 @@ package frc.robot.commands.Arms;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class ArmPistonButton extends Command {
+public class LockPistonButton extends Command {
 
-  public ArmPistonButton() {
+  public LockPistonButton() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.arms);
   }
@@ -25,7 +25,7 @@ public class ArmPistonButton extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.arms.armPistons();
+    Robot.arms.lockPiston();
   }
 
   // Make this return true when this Command no longer needs to run execute()

@@ -50,7 +50,7 @@ public class Drivetrain extends Subsystem {
 
   //NAVX MXP GYRO
   public static AHRS gyro = new AHRS(SPI.Port.kMXP);
-  public static double kPGyro = 0.08;
+  public static double kPGyro = 0.008;
 
   //NEO MOTOR ENCODERS
   public CANEncoder leftNeoEnc = frontLeftM.getEncoder();
@@ -63,9 +63,12 @@ public class Drivetrain extends Subsystem {
   //DRIVETRAIN CONSTRUCTOR
   public Drivetrain() {
     resetGyro();
+    
     leftEnc.reset();
     rightEnc.reset();
+
     shiftSol.set(DoubleSolenoid.Value.kForward);
+
     frontLeftM.setIdleMode(IdleMode.kCoast);
     midLeftM.setIdleMode(IdleMode.kCoast);
     rearLeftM.setIdleMode(IdleMode.kBrake);
@@ -98,13 +101,30 @@ public class Drivetrain extends Subsystem {
   //MOVING STRAIGHT USING THE GYRO METHOD
   public void gyroMoveStraight(double speed)
   {
-      diffDrive.arcadeDrive((speed), gyro.getAngle() * kPGyro);
+      diffDrive.arcadeDrive(-(speed), -gyro.getAngle() * kPGyro);
   }
 
   //MOVING STRAIGHT USING GYRO AND ANGLE VALUE METHOD
   public void gyroMoveStraight(double speed, double angle)
   {
-      diffDrive.arcadeDrive((speed), angle * kPGyro);
+      diffDrive.arcadeDrive(-(speed), -angle * kPGyro);
+  }
+
+  //ROTATE ROBOT
+  public void rotate(double speed)
+  {
+    leftGroup.set(speed);
+    rightGroup.set(speed);
+  }
+
+  public double decimalSpeed(double speed)
+  {
+    return ((int)(((speed + 350) / 700.0) * 100) / 100.0);
+  }
+
+  public void stop()
+  {
+    rotate(0);
   }
 
   public double getLeftEncRate() {

@@ -18,6 +18,8 @@ import frc.robot.subsystems.Arms;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Tape;
+import frc.robot.subsystems.Ultra;
 
 public class Robot extends TimedRobot {
 
@@ -28,6 +30,8 @@ public class Robot extends TimedRobot {
   public static final Climber climber = new Climber();
   public static final Elevator elevator = new Elevator();
   public static final Pivot pivot = new Pivot();
+  public static final Tape tape = new Tape();
+  public static final Ultra ultra = new Ultra();
   public static OI oi = new OI();
 
   Command m_autonomousCommand;
@@ -64,73 +68,72 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-        SmartDashboard.putBoolean("Top Limit Value", Robot.elevator.topLimit.get());
-        SmartDashboard.putBoolean("Bottom Limit Value", Robot.elevator.bottomLimit.get());
-        SmartDashboard.putBoolean("Pivot Limit Value", Robot.pivot.pivotLimit.get());
-        //OUTPUTTING LEFT SIDE DRIVETRAIN ENCODER VALUES
-        SmartDashboard.putNumber("Left Enc Rate", Robot.drivetrain.getLeftEncRate());
-        SmartDashboard.putNumber("Left Enc Distance", Robot.drivetrain.getLeftEncDist());
-        //OUTPUTTING RIGHT SIDE DRIVETRAIN ENCODER VALUES
-        SmartDashboard.putNumber("Right Enc Rate", Robot.drivetrain.getRightEncRate());
-        SmartDashboard.putNumber("Right Enc Distance", Robot.drivetrain.getRightEncDist());
-        //OUTPUTTING LEFT SIDE DRIVETRAIN VOLTAGE VALUES
-        SmartDashboard.putNumber("Front Left Motor Voltage", Robot.drivetrain.frontLeftM.getBusVoltage());
-        SmartDashboard.putNumber("Mid Left Motor Voltage", Robot.drivetrain.midLeftM.getBusVoltage());
-        SmartDashboard.putNumber("Rear Left Motor Voltage", Robot.drivetrain.rearLeftM.getBusVoltage());
-        //OUTPUTTING RIGHT SIDE DRIVETRAIN VOLTAGE VALUES
-        SmartDashboard.putNumber("Front Right Motor Voltage", Robot.drivetrain.frontRightM.getBusVoltage());
-        SmartDashboard.putNumber("Mid Right Motor Voltage", Robot.drivetrain.midRightM.getBusVoltage());
-        SmartDashboard.putNumber("Rear Right Motor Voltage", Robot.drivetrain.rearRightM.getBusVoltage());
-        //OUTPUTTING LEFT SIDE DRIVETRAIN OUTPUT VALUES
-        SmartDashboard.putNumber("Front Left Motor Output", Robot.drivetrain.frontLeftM.getAppliedOutput());
-        SmartDashboard.putNumber("Mid Left Motor Output", Robot.drivetrain.midLeftM.getAppliedOutput());
-        SmartDashboard.putNumber("Rear Left Motor Output", Robot.drivetrain.rearLeftM.getAppliedOutput());
-        //OUTPUTTING RIGHT SIDE DRIVETRAIN OUTPUT VALUES
-        SmartDashboard.putNumber("Front Right Motor Output", Robot.drivetrain.frontRightM.getAppliedOutput());
-        SmartDashboard.putNumber("Mid Right Motor Output", Robot.drivetrain.midRightM.getAppliedOutput());
-        SmartDashboard.putNumber("Rear Right Motor Output", Robot.drivetrain.rearRightM.getAppliedOutput());
-        //OUTPUTTING GYRO VALUES
-        SmartDashboard.putNumber("Gyro Angle", Robot.drivetrain.getGyroAngle());
-        SmartDashboard.putNumber("Gyro Axis", Robot.drivetrain.getGyroAxis());
-        //OUTPUTTING PIVOT ENCODER VALUES
-        SmartDashboard.putNumber("Pivot Encoder Position", Robot.pivot.pivotEncPos);
-        //OUTPUTTING NEO VALUES FOR CLIMBER
-        SmartDashboard.putNumber("Climb Enc A Pos", Robot.climber.actuatorNeoEncA.getPosition());
-        SmartDashboard.putNumber("Climb Enc B Pos", Robot.climber.actuatorNeoEncB.getPosition());
-        SmartDashboard.putNumber("Climb Enc C Pos", Robot.climber.actuatorNeoEncC.getPosition());
-        SmartDashboard.putNumber("Climb Enc D Pos", Robot.climber.actuatorNeoEncD.getPosition());
-        SmartDashboard.putNumber("Climb Motor A Output", Robot.climber.actuatorMA.getAppliedOutput());
-        SmartDashboard.putNumber("Climb Motor C Output", Robot.climber.actuatorMC.getAppliedOutput());
-  
-        if ( Robot.climber.actuator_state == "RETRACTED" && Robot.climber.actuatorNeoEncA.getPosition() > Robot.climber.target_position ){
-          Robot.climber.actuatorMA.set(0);
-          Robot.climber.actuatorMB.set(0);
-          Robot.climber.actuator_state = "EXTENDED";
-          System.out.println("Actuators Stopped");
-        }
+        
+      SmartDashboard.putBoolean("Top Limit Value", Robot.elevator.topLimit.get());
+      SmartDashboard.putBoolean("Bottom Limit Value", Robot.elevator.bottomLimit.get());
+      SmartDashboard.putBoolean("Pivot Limit Value", Robot.pivot.pivotLimit.get());
+      //OUTPUTTING LEFT SIDE DRIVETRAIN ENCODER VALUES
+      SmartDashboard.putNumber("Left Enc Rate", Robot.drivetrain.getLeftEncRate());
+      SmartDashboard.putNumber("Left Enc Distance", Robot.drivetrain.getLeftEncDist());
+      //OUTPUTTING RIGHT SIDE DRIVETRAIN ENCODER VALUES
+      SmartDashboard.putNumber("Right Enc Rate", Robot.drivetrain.getRightEncRate());
+      SmartDashboard.putNumber("Right Enc Distance", Robot.drivetrain.getRightEncDist());
 
-        if ( Robot.climber.actuator_state == "EXTENDED" && Robot.climber.actuatorNeoEncA.getPosition() < Robot.climber.target_position ){
-          Robot.climber.actuatorMA.set(0);
-          Robot.climber.actuatorMB.set(0);
-          Robot.climber.actuator_state = "RETRACTED";
-          System.out.println("Actuators Stopped");
-        }
+      //OUTPUTTING LEFT SIDE DRIVETRAIN VOLTAGE VALUES
+      SmartDashboard.putNumber("Front Left Motor Voltage", Robot.drivetrain.frontLeftM.getBusVoltage());
+      SmartDashboard.putNumber("Mid Left Motor Voltage", Robot.drivetrain.midLeftM.getBusVoltage());
+      SmartDashboard.putNumber("Rear Left Motor Voltage", Robot.drivetrain.rearLeftM.getBusVoltage());
+      //OUTPUTTING RIGHT SIDE DRIVETRAIN VOLTAGE VALUES
+      SmartDashboard.putNumber("Front Right Motor Voltage", Robot.drivetrain.frontRightM.getBusVoltage());
+      SmartDashboard.putNumber("Mid Right Motor Voltage", Robot.drivetrain.midRightM.getBusVoltage());
+      SmartDashboard.putNumber("Rear Right Motor Voltage", Robot.drivetrain.rearRightM.getBusVoltage());
+      //OUTPUTTING GYRO VALUES
+      SmartDashboard.putNumber("Gyro Angle", Robot.drivetrain.getGyroAngle());
+      SmartDashboard.putNumber("Gyro Axis", Robot.drivetrain.getGyroAxis());
+      //OUTPUTTING PIVOT ENCODER VALUES
+      SmartDashboard.putNumber("Pivot Encoder Position", Robot.pivot.pivotM.getSensorCollection().getQuadraturePosition());
+
+      //OUTPUTTING NEO VALUES FOR CLIMBER
+      SmartDashboard.putNumber("Climb Enc Front R Pos", Robot.climber.actuatorNeoEncFrontRight.getPosition());
+      SmartDashboard.putNumber("Climb Enc Front L Pos", Robot.climber.actuatorNeoEncFrontLeft.getPosition());
+      SmartDashboard.putNumber("Climb Enc Back R Pos", Robot.climber.actuatorNeoEncBackRight.getPosition());
+      SmartDashboard.putNumber("Climb Enc Back L Pos", Robot.climber.actuatorNeoEncBackLeft.getPosition());
+      SmartDashboard.putNumber("Climb Motor Front R Output", Robot.climber.actuatorMFrontRight.getAppliedOutput());
+      SmartDashboard.putNumber("Climb Motor Back L Output", Robot.climber.actuatorMBackLeft.getAppliedOutput());
+
+        // if ( Robot.climber.actuator_state == "RETRACTED" && 
+        // Robot.climber.actuatorNeoEncA.getPosition() > Robot.climber.target_position ){
+        //   Robot.climber.actuatorMA.set(0);
+        //   Robot.climber.actuatorMB.set(0);
+        //   Robot.climber.actuator_state = "EXTENDED";
+        //   System.out.println("Actuators Stopped");
+        // }
+
+        // if ( Robot.climber.actuator_state == "EXTENDED" && 
+        // Robot.climber.actuatorNeoEncA.getPosition() < Robot.climber.target_position ){
+        //   Robot.climber.actuatorMA.set(0);
+        //   Robot.climber.actuatorMB.set(0);
+        //   Robot.climber.actuator_state = "RETRACTED";
+        //   System.out.println("Actuators Stopped");
+        // }
 
 
 
-        if ( Robot.climber.actuator_back_state == "RETRACTED" && Robot.climber.actuatorNeoEncC.getPosition() > 104.0 ){
-          Robot.climber.actuatorMC.set(0);
-          Robot.climber.actuatorMD.set(0);
-          Robot.climber.actuator_back_state = "EXTENDED";
-          System.out.println("Back Actuators Stopped");
-        }
+        // if ( Robot.climber.actuator_back_state == "RETRACTED" && 
+        // Robot.climber.actuatorNeoEncC.getPosition() > Robot.climber.back_target_position ){
+        //   Robot.climber.actuatorMC.set(0);
+        //   Robot.climber.actuatorMD.set(0);
+        //   Robot.climber.actuator_back_state = "EXTENDED";
+        //   System.out.println("Back Actuators Stopped");
+        // }
 
-        if ( Robot.climber.actuator_back_state == "EXTENDED" && Robot.climber.actuatorNeoEncC.getPosition() < 5 ){
-          Robot.climber.actuatorMC.set(0);
-          Robot.climber.actuatorMD.set(0);
-          Robot.climber.actuator_back_state = "RETRACTED";
-          System.out.println("Back Actuators Stopped");
-        }
+        // if ( Robot.climber.actuator_back_state == "EXTENDED" && 
+        // Robot.climber.actuatorNeoEncC.getPosition() < Robot.climber.back_target_position ){
+        //   Robot.climber.actuatorMC.set(0);
+        //   Robot.climber.actuatorMD.set(0);
+        //   Robot.climber.actuator_back_state = "RETRACTED";
+        //   System.out.println("Back Actuators Stopped");
+        // }
 
       }
 
@@ -186,6 +189,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+
+    ultra.enable();
   }
 
   /**
@@ -193,6 +198,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    //ultra.getRange();
     Scheduler.getInstance().run();
   }
 

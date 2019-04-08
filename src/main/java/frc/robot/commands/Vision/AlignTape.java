@@ -15,23 +15,24 @@ public class AlignTape extends Command
     //Sets the gyro and angle at zero, both the right and left coordinates to default values, and ultrasound is enabled
     public void initialize()
     {
-        TAPE.resetGyro();
-        TAPE.setAngle(TAPE.getNTAngle());
-        TAPE.setXPosLeftLimit(157.5);
-        TAPE.setXPosRightLimit(162.5);
-        Ultra.enable();
+        Robot.drivetrain.resetGyro();
+        Robot.tape.reset();
+        Robot.tape.setAngle(TAPE.getNTAngle());
+        Robot.tape.setXPosLeftLimit(157.5);
+        Robot.tape.setXPosRightLimit(162.5);
+        Robot.ultra.enable();
     }
 
     //Executes the vision code
     public void execute()
     {
-        TAPE.align();
+        Robot.tape.align();
     }
 
     //Returns whether the vision code has finished
     public boolean isFinished()
     {
-        return TAPE.isAligned();
+        return Robot.tape.isAligned();
     }
 
     //Terminates the vision code, motors are turned off, and the ultrasound is disabled
@@ -39,7 +40,7 @@ public class AlignTape extends Command
     {
         Robot.drivetrain.leftGroup.set(0);
         Robot.drivetrain.rightGroup.set(0);
-        Ultra.disable();
+        Robot.ultra.disable();
     }
 
     //Suspends robot activity, motors are turned off, and ultrasound is disabled
@@ -47,7 +48,7 @@ public class AlignTape extends Command
     {
         Robot.drivetrain.leftGroup.set(0);
         Robot.drivetrain.rightGroup.set(0);
-        Ultra.disable();
+        Robot.ultra.disable();
     }
 }
 
