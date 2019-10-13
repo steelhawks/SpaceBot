@@ -78,8 +78,8 @@ public class Constants {
     // public static final int pivotUpB = 10;
     // public static final int armIntakeB = 11;
     // public static final int armOuttakeB = 12;
-    // public static final int elevatorDownB = 1;
-    // public static final int elevatorUpB = 2;
+    public static final int elevatorDownB = 1;
+    public static final int elevatorUpB = 2;
   
 
     //OPERATOR GAMEPAD BUTTONS

@@ -28,7 +28,7 @@ import frc.robot.commands.Elevator.ElevatorUpButton;
 import frc.robot.commands.Pivot.PivotDownButton;
 import frc.robot.commands.Pivot.PivotStop;
 import frc.robot.commands.Pivot.PivotUpButton;
-//import frc.robot.commands.Vision.AlignTape;
+import frc.robot.commands.Vision.AlignTape;
 
 /** 
  * This class is the glue that binds the controls on the physical operator
@@ -52,8 +52,8 @@ public class OI {
     dropdown.whenInactive(new DropdownStop());
 
     //DRIVER VISION ALIGN BUTTON
-    //Button alignTape = new JoystickButton(driveJS, constants.alignTape);
-    //alignTape.whenPressed(new AlignTape());
+    Button alignTape = new JoystickButton(driveJS, constants.alignTape);
+    alignTape.whenPressed(new AlignTape());
 
     //OPERATOR GAMEPAD BUTTONS
     Button hatchPiston = new JoystickButton(gamepad, constants.hatchPistonB);
@@ -92,13 +92,30 @@ public class OI {
     Button lockPiston = new JoystickButton(buttonBoard, constants.lockPistonB);
     lockPiston.whenPressed(new LockPistonButton());
 
-    // Button elevatorUp = new JoystickButton(buttonBoard, constants.elevatorUpB);
-    // elevatorUp.whenActive(new ElevatorUpButton());
-    // elevatorUp.whenInactive(new ElevatorStop());
+    Button elevatorUp = new JoystickButton(buttonBoard, constants.elevatorUpB);
+    elevatorUp.whenActive(new ElevatorUpButton());
+    elevatorUp.whenInactive(new ElevatorStop());
 
-    // Button elevatorDown = new JoystickButton(buttonBoard, constants.elevatorDownB);
-    // elevatorDown.whenActive(new ElevatorDownButton());
-    // elevatorDown.whenInactive(new ElevatorStop());
+    Button elevatorDown = new JoystickButton(buttonBoard, constants.elevatorDownB);
+    elevatorDown.whenActive(new ElevatorDownButton());
+    elevatorDown.whenInactive(new ElevatorStop());
 
+    //Closing all command calls. Makes the code run faster (less resources present)
+
+    shift.close();
+    dropdown.close();
+    alignTape.close();
+    hatchPiston.close();
+    armIntake.close();
+    armOuttake.close();
+    pivotUp.close();
+    pivotDown.close();
+    actuatorRetractFront.close();
+    actuatorRetractBack.close();
+    actuatorLevelTwo.close();
+    actuatorLevelThree.close();
+    lockPiston.close();
+    elevatorUp.close();
+    elevatorDown.close();
   }
 }
